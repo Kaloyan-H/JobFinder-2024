@@ -6,7 +6,8 @@
     <title>@ViewData["Title"] - JobFinder</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/JobFinder.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/JobFinder.styles.css" asp-append-version="true"/>
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon"/>
 </head>
 <body>
     <header>
@@ -32,7 +33,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - JobFinder - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @DateTime.Today.Year - JobFinder
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
