@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JobFinder.Infrastructure\JobFinder.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

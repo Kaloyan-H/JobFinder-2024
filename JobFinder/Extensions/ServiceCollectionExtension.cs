@@ -1,4 +1,4 @@
-﻿using JobFinder.Data;
+﻿using JobFinder.Infrastructure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
