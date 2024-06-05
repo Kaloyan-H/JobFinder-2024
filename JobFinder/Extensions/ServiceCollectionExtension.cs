@@ -1,5 +1,5 @@
 ﻿using JobFinder.Infrastructure.Data;
-using Microsoft.AspNetCore.Identity;
+using JobFinder.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -25,7 +25,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationIdentity(this IServiceCollection services, IConfiguration config)
         {
             services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddIdentity<AppUser, AppRole>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = true;
                 })
