@@ -4,6 +4,7 @@ using JobFinder.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobFinder.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240605163724_AddedEntities")]
+    partial class AddedEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,23 +86,6 @@ namespace JobFinder.Infrastructure.Migrations
                     b.ToTable("Categories");
 
                     b.HasComment("Categories table");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "IT"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Creative"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Marketing"
-                        });
                 });
 
             modelBuilder.Entity("JobFinder.Infrastructure.Data.Models.Company", b =>
@@ -161,28 +146,6 @@ namespace JobFinder.Infrastructure.Migrations
                     b.ToTable("EmploymentTypes");
 
                     b.HasComment("Employment types table");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Full-time"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Part-time"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Contract"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Internship"
-                        });
                 });
 
             modelBuilder.Entity("JobFinder.Infrastructure.Data.Models.Job", b =>
