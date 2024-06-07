@@ -1,6 +1,7 @@
 ﻿using JobFinder.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using JobFinder.Core.Models.Home;
 
 namespace JobFinder.Controllers
 {
@@ -15,7 +16,9 @@ namespace JobFinder.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel();
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
