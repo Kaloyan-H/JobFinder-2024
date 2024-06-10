@@ -1,5 +1,9 @@
-﻿using JobFinder.Infrastructure.Data;
+﻿using JobFinder.Core.Contracts;
+using JobFinder.Core.Services;
+using JobFinder.Infrastructure.Common;
+using JobFinder.Infrastructure.Data;
 using JobFinder.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -8,6 +12,8 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            services.AddScoped<IJobService, JobService>();
+
             return services;
         }
 
@@ -16,6 +22,8 @@ namespace Microsoft.Extensions.DependencyInjection
             var connectionString = config.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -33,8 +41,12 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                 })
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            
+
+            services.AddRazorPages();
+
             return services;
         }
     }
