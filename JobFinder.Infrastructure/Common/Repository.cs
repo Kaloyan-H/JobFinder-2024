@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.Infrastructure.Common
 {
-    public class Repository
+    public class Repository : IRepository
     {
         private readonly DbContext context;
 
