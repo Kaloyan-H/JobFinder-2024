@@ -7,7 +7,7 @@ namespace JobFinder.Core.Services
 {
     public class JobService : IJobService
     {
-        private IRepository repository;
+        private readonly IRepository repository;
 
         public JobService(IRepository _repository)
         {
