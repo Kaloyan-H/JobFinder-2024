@@ -45,6 +45,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User/Login";
+                options.LogoutPath = "/User/Logout";
+            });
+
             services.AddRazorPages();
 
             return services;

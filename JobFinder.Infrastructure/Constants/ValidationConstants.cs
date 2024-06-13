@@ -69,6 +69,15 @@
 
             public const int BioMinLength = 20;
             public const int BioMaxLength = 300;
+
+            public const int UserNameMinLength = 5;
+            public const int UserNameMaxLength = 20;
+
+            public const int EmailMinLength = 4;
+            public const int EmailMaxLength = 320;
+
+            public const int PasswordMinLength = 8;
+            public const int PasswordMaxLength = 100;
         }
     }
 }
