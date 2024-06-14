@@ -13,6 +13,7 @@ namespace JobFinder.Infrastructure.Data
         { }
 
         public DbSet<Job> Jobs { get; set; } = null!;
+        public DbSet<AppRole> AppRoles { get; set; } = null!;
         public DbSet<Message> Messages { get; set; } = null!;
         public DbSet<Company> Companies { get; set; } = null!;
         public DbSet<Category> Categories { get; set; } = null!;
