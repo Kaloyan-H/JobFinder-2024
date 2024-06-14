@@ -32,6 +32,14 @@
                 <span asp-validation-for="@Model.LastName" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
+                <label asp-for="@Model.Role">Role</label>
+                <select asp-for="@Model.Role" class="form-control">
+                    <option value="Recruiter">Recruiter</option>
+                    <option value="JobSeeker">Job Seeker</option>
+                </select>
+                <span asp-validation-for="@Model.Role" class="text-danger"></span>
+            </div>
+            <div class="text-center mb-3">
                 <label asp-for="@Model.Bio">Bio</label>
                 <textarea class="form-control " autocomplete="off" aria-required="true" asp-for="@Model.Bio"></textarea>
                 <span asp-validation-for="@Model.Bio" class="text-danger"></span>
