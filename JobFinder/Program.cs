@@ -1,3 +1,4 @@
+using JobFinder.Core.Contracts;
 using JobFinder.ModelBinders;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,12 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddApplicationServices();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var roleInitializer = scope.ServiceProvider.GetRequiredService<IRoleInitializer>();
+    await roleInitializer.InitializeRolesAsync();
+}
 
 if (app.Environment.IsDevelopment())
 {
