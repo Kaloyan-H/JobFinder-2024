@@ -3,6 +3,7 @@ using JobFinder.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using static JobFinder.Infrastructure.Constants.Roles;
 
 namespace JobFinder.Controllers
 {
@@ -10,14 +11,17 @@ namespace JobFinder.Controllers
     public class UserController : Controller
     {
         private readonly UserManager<AppUser> userManager;
+        private readonly RoleManager<AppRole> roleManager;
         private readonly SignInManager<AppUser> signInManager;
 
         public UserController(
             UserManager<AppUser> _userManager,
-            SignInManager<AppUser> _signInManager)
+            SignInManager<AppUser> _signInManager,
+            RoleManager<AppRole> _roleManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
+            roleManager = _roleManager;
         }
 
         [HttpGet]
@@ -51,6 +55,15 @@ namespace JobFinder.Controllers
                 LastName = model.LastName,
                 FirstName = model.FirstName,
             };
+
+            if (await roleManager.RoleExistsAsync(model.Role) && model.Role != Administrator.ToString())
+            {
+                await userManager.AddToRoleAsync(user, model.Role);
+            }
+            else
+            {
+                return View(model);
+            }
 
             var result = await userManager.CreateAsync(user, model.Password);
 

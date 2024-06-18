@@ -37,6 +37,9 @@ namespace JobFinder.Core.Models.User
         public string Bio { get; set; } = null!;
 
         [Required]
+        public string Role { get; set; } = null!;
+
+        [Required]
         [StringLength(
             AppUserConstants.PasswordMaxLength,
             MinimumLength = AppUserConstants.PasswordMinLength)]
