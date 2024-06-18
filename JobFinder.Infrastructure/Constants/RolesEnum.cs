@@ -1,6 +1,6 @@
 ﻿namespace JobFinder.Infrastructure.Constants
 {
-    public enum Roles
+    public enum RolesEnum
     {
         Administrator = 0b1,
         Recruiter = 0b10,

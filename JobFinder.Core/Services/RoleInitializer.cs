@@ -1,7 +1,7 @@
 ﻿using JobFinder.Core.Contracts;
 using JobFinder.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using static JobFinder.Infrastructure.Constants.Roles;
+using static JobFinder.Infrastructure.Constants.RolesEnum;
 
 namespace JobFinder.Core.Services
 {
