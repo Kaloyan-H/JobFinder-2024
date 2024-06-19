@@ -21,5 +21,9 @@ namespace JobFinder.Core.Services
 
             return user?.Company != null;
         }
+
+        public async Task<AppUser?> GetUserAsync(string userId)
+            => await repository.All<AppUser>()
+                .FirstOrDefaultAsync(au => au.Id == userId);
     }
 }
