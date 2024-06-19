@@ -1,5 +1,6 @@
 ﻿using JobFinder.Core.Contracts;
 using JobFinder.Core.Models.User;
+using JobFinder.Infrastructure.Constants;
 using JobFinder.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -51,9 +52,11 @@ namespace JobFinder.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            if (await roleManager.RoleExistsAsync(model.Role))
+            if (!await roleManager.RoleExistsAsync(model.Role))
             {
-                ModelState.AddModelError(nameof(model.Role), "Role does not exist.");
+                ModelState.AddModelError(
+                    nameof(model.Role),
+                    ErrorMessages.RoleDoesNotExistErrorMessage);
             }
 
             if (!ModelState.IsValid)
@@ -61,7 +64,7 @@ namespace JobFinder.Controllers
                 return View(model);
             }
 
-            var user = new AppUser()
+            AppUser user = new AppUser()
             {
                 Bio = model.Bio,
                 Email = model.Email,
@@ -70,26 +73,23 @@ namespace JobFinder.Controllers
                 FirstName = model.FirstName,
             };
 
+
             if (await roleManager.RoleExistsAsync(model.Role) &&
                 (model.Role == Recruiter.ToString() || model.Role == JobSeeker.ToString()))
             {
-                await userManager.AddToRoleAsync(user, model.Role);
-            }
-            else
-            {
-                return View(model);
-            }
+                var result = await userManager.CreateAsync(user, model.Password);
 
-            var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, model.Role);
 
-            if (result.Succeeded)
-            {
-                return RedirectToAction("Login", "User");
-            }
+                    return RedirectToAction(nameof(Login));
+                }
 
-            foreach (var item in result.Errors)
-            {
-                ModelState.AddModelError("", item.Description);
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError("", item.Description);
+                }
             }
 
             return View(model);
