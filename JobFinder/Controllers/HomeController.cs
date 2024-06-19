@@ -16,7 +16,7 @@ namespace JobFinder.Controllers
 
         public IActionResult Index()
         {
-            var model = new IndexViewModel();
+            var model = new HomeIndexViewModel();
 
             return View(model);
         }
