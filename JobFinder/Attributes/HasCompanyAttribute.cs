@@ -17,12 +17,14 @@ namespace JobFinder.Attributes
                 context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            if (await userService!.HasCompanyAsync(user.Id()))
+            if (!await userService!.HasCompanyAsync(user.Id()))
             {
-                context.Result = new RedirectToActionResult("Company", "Create", null);
+                context.Result = new RedirectToActionResult("Create", "Company", null);
             }
-
-            await next();
+            else
+            {
+                await next();
+            }
         }
     }
 }
