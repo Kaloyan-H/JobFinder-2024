@@ -14,7 +14,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.AddScoped<IJobService, JobService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IRoleInitializer, RoleInitializer>();
+            services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
 
             return services;
         }
@@ -37,7 +40,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services
                 .AddIdentity<AppUser, AppRole>(options =>
                 {
-                    options.SignIn.RequireConfirmedAccount = true;
+                    options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireDigit = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
