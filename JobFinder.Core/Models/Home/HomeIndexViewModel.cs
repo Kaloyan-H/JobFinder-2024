@@ -1,6 +1,6 @@
 ﻿namespace JobFinder.Core.Models.Home
 {
-    public class IndexViewModel
+    public class HomeIndexViewModel
     {
     }
 }
