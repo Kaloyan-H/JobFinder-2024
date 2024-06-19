@@ -1,4 +1,5 @@
-﻿using JobFinder.Core.Models.User;
+﻿using JobFinder.Core.Contracts;
+using JobFinder.Core.Models.User;
 using JobFinder.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -13,20 +14,26 @@ namespace JobFinder.Controllers
         private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<AppRole> roleManager;
         private readonly SignInManager<AppUser> signInManager;
+        private readonly IRoleService roleService;
+        private readonly ILogger<UserController> logger;
 
         public UserController(
             UserManager<AppUser> _userManager,
             SignInManager<AppUser> _signInManager,
-            RoleManager<AppRole> _roleManager)
+            RoleManager<AppRole> _roleManager,
+            IRoleService _roleService,
+            ILogger<UserController> _logger)
         {
             userManager = _userManager;
             signInManager = _signInManager;
             roleManager = _roleManager;
+            roleService = _roleService;
+            logger = _logger;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
             if (User?.Identity?.IsAuthenticated ?? false)
             {
@@ -35,6 +42,8 @@ namespace JobFinder.Controllers
 
             var model = new RegisterViewModel();
 
+            model.Roles = await roleService.AllNormalRolesAsync();
+
             return View(model);
         }
 
@@ -42,6 +51,11 @@ namespace JobFinder.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            if (await roleManager.RoleExistsAsync(model.Role))
+            {
+                ModelState.AddModelError(nameof(model.Role), "Role does not exist.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -56,7 +70,8 @@ namespace JobFinder.Controllers
                 FirstName = model.FirstName,
             };
 
-            if (await roleManager.RoleExistsAsync(model.Role) && model.Role != Administrator.ToString())
+            if (await roleManager.RoleExistsAsync(model.Role) &&
+                (model.Role == Recruiter.ToString() || model.Role == JobSeeker.ToString()))
             {
                 await userManager.AddToRoleAsync(user, model.Role);
             }
