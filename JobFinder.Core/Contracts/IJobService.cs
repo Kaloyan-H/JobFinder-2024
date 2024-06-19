@@ -1,10 +1,4 @@
-﻿using JobFinder.Infrastructure.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using JobFinder.Core.Models.Job;
 
 namespace JobFinder.Core.Contracts
 {
@@ -12,6 +6,11 @@ namespace JobFinder.Core.Contracts
     {
         public Task<bool> ExistsAsync(int jobId);
 
-        public Task<bool> CreateAsync();
+        /// <summary>
+        /// Asynchronously creates a new Job entity model and adds it to the database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns>The Job Id</returns>
+        public Task<int> CreateAsync(JobCreateViewModel model, int companyId);
     }
 }
