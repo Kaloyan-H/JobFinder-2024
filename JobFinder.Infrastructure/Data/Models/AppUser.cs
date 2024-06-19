@@ -27,7 +27,7 @@ namespace JobFinder.Infrastructure.Data.Models
         [Comment("User bio")]
         public string Bio { get; set; } = null!;
 
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         [ForeignKey(nameof(CompanyId))]
         public Company? Company { get; set; }

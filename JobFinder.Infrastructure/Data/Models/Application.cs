@@ -19,7 +19,6 @@ namespace JobFinder.Infrastructure.Data.Models
         public string CoverLetter { get; set; } = null!;
 
         [Required]
-        [MaxLength()]
         [Comment("Applicant resume URL")]
         public string ResumeURL { get; set; } = null!;
 

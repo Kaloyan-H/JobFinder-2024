@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobFinder.Infrastructure.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
