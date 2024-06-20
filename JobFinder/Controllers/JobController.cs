@@ -85,8 +85,7 @@ namespace JobFinder.Controllers
 
             int jobId = await jobService.CreateAsync(model, user.CompanyId ?? 0);
 
-            return RedirectToAction(nameof(Details), new { jobId });
+            return RedirectToAction(nameof(Details), new { id = jobId });
         }
-
     }
 }
