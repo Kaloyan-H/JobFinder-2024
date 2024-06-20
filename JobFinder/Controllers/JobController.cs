@@ -38,10 +38,17 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Details(int id)
+        [Authorize(Roles = "JobSeeker")]
+        public async Task<IActionResult> Details(int id)
         {
-            return View();
+            if (!await jobService.ExistsAsync(id))
+            {
+                return NotFound();
+            }
+
+            var model = await jobService.GetJobAsync(id);
+
+            return View(model);
         }
 
         [HttpGet]

@@ -12,5 +12,7 @@ namespace JobFinder.Core.Contracts
         /// <param name="model"></param>
         /// <returns>The Job Id</returns>
         public Task<int> CreateAsync(JobCreateFormModel model, int companyId);
+
+        public Task<JobDetailsViewModel> GetJobAsync(int jobId);
     }
 }
