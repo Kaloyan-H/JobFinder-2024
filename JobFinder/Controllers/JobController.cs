@@ -49,7 +49,7 @@ namespace JobFinder.Controllers
         [HasCompany]
         public async Task<IActionResult> Create()
         {
-            var model = new JobCreateViewModel();
+            var model = new JobCreateFormModel();
 
             model.Categories = await categoryService.AllCategoriesAsync();
             model.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
@@ -60,7 +60,7 @@ namespace JobFinder.Controllers
         [HttpPost]
         [Authorize(Roles = "Recruiter")]
         [HasCompany]
-        public async Task<IActionResult> Create(JobCreateViewModel model)
+        public async Task<IActionResult> Create(JobCreateFormModel model)
         {
             if (!await categoryService.ExistsAsync(model.CategoryId))
             {

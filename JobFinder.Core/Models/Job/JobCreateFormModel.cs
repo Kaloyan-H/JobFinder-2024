@@ -4,7 +4,7 @@ using static JobFinder.Infrastructure.Constants.ValidationConstants;
 
 namespace JobFinder.Core.Models.Job
 {
-    public class JobCreateViewModel : IValidatableObject
+    public class JobCreateFormModel : IValidatableObject
     {
         [Required(ErrorMessage = ErrorMessages.RequiredErrorMessage)]
         [StringLength(

@@ -20,7 +20,7 @@ namespace JobFinder.Core.Services
                 .AllReadOnly<Job>()
                 .AnyAsync(j => j.Id == jobId);
 
-        public async Task<int> CreateAsync(JobCreateViewModel model, int companyId)
+        public async Task<int> CreateAsync(JobCreateFormModel model, int companyId)
         {
             Job job = new Job()
             {
