@@ -8,3 +8,11 @@
 
 <p class="text-center">Description: @Model.Description</p>
 <p class="text-center">Industry: @Model.Requirements</p>
+
+@if (Model.EmployerId == User.Id())
+{
+    <form class="text-center" asp-controller="Job" asp-action="Edit" method="get">
+        <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+        <button class="btn btn-warning" type="submit" role="button">Edit</button>
+    </form>
+}

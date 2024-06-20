@@ -44,7 +44,89 @@ namespace JobFinder.Core.Services
             return job.Id;
         }
 
-        public async Task<JobDetailsViewModel> GetJobAsync(int jobId)
+        public async Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId)
+        {
+            Job job = await GetJobReadOnlyAsync(jobId);
+
+            JobDetailsViewModel jobModel = new JobDetailsViewModel()
+            {
+                Id = job.Id,
+                Title = job.Title,
+                Description = job.Description,
+                Requirements = job.Requirements,
+                Responsibilities = job.Responsibilities,
+                Benefits = job.Benefits,
+                MinSalary = job.MinSalary,
+                MaxSalary = job.MaxSalary,
+                CreatedAt = job.CreatedAt,
+                CompanyId = job.CompanyId,
+                CompanyName = job.Company.Name,
+                Category = job.Category.Name,
+                EmploymentType = job.EmploymentType.Name,
+                EmployerId = job.Company.EmployerId
+            };
+
+            return jobModel;
+        }
+
+        public async Task<JobEditFormModel> GetJobEditModelAsync(int jobId)
+        {
+            Job job = await GetJobReadOnlyAsync(jobId);
+
+            JobEditFormModel jobModel = new JobEditFormModel()
+            {
+                Id = jobId,
+                Title = job.Title,
+                Description = job.Description,
+                Requirements = job.Requirements,
+                Responsibilities = job.Responsibilities,
+                Benefits = job.Benefits,
+                MinSalary = job.MinSalary,
+                MaxSalary = job.MaxSalary,
+                CategoryId = job.CategoryId,
+                EmploymentTypeId = job.EmploymentTypeId,
+                EmployerId = job.Company.EmployerId
+            };
+
+            return jobModel;
+        }
+
+        public async Task<int> EditJobAsync(JobEditFormModel model)
+        {
+            Job job = await GetJobAsync(model.Id);
+
+            job.Title = model.Title;
+            job.Description = model.Description;
+            job.Requirements = model.Requirements;
+            job.Responsibilities = model.Responsibilities;
+            job.Benefits = model.Benefits;
+            job.MinSalary = job.MinSalary;
+            job.MaxSalary = job.MaxSalary;
+            job.CategoryId = job.CategoryId;
+            job.EmploymentTypeId = job.EmploymentTypeId;
+
+            await repository.SaveChangesAsync();
+
+            return job.Id;
+        }
+
+        private async Task<Job> GetJobAsync(int jobId)
+        {
+            var job = await repository.All<Job>()
+                .Include(j => j.Category)
+                .Include(j => j.EmploymentType)
+                .Include(j => j.Company)
+                .FirstOrDefaultAsync(j => j.Id == jobId);
+
+            if (job == null)
+            {
+                throw new ArgumentException(ErrorMessages.JobDoesNotExistErrorMessage, nameof(jobId));
+            }
+
+            return job;
+        }
+
+        private async Task<Job> GetJobReadOnlyAsync(int jobId)
         {
             var job = await repository.AllReadOnly<Job>()
                 .Include(j => j.Category)
@@ -57,23 +139,7 @@ namespace JobFinder.Core.Services
                 throw new ArgumentException(ErrorMessages.JobDoesNotExistErrorMessage, nameof(jobId));
             }
 
-            JobDetailsViewModel jobModel = new JobDetailsViewModel()
-            {
-                Title = job.Title,
-                Description = job.Description,
-                Requirements = job.Requirements,
-                Responsibilities = job.Responsibilities,
-                Benefits = job.Benefits,
-                MinSalary = job.MinSalary,
-                MaxSalary = job.MaxSalary,
-                CreatedAt= job.CreatedAt,
-                CompanyId = job.CompanyId,
-                CompanyName = job.Company.Name,
-                Category = job.Category.Name,
-                EmploymentType = job.EmploymentType.Name,
-            };
-
-            return jobModel;
+            return job;
         }
     }
 }

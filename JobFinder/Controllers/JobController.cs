@@ -38,7 +38,6 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "JobSeeker")]
         public async Task<IActionResult> Details(int id)
         {
             if (!await jobService.ExistsAsync(id))
@@ -46,7 +45,7 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            var model = await jobService.GetJobAsync(id);
+            var model = await jobService.GetJobDetailsModelAsync(id);
 
             return View(model);
         }
@@ -91,6 +90,66 @@ namespace JobFinder.Controllers
             AppUser user = (await userService.GetUserAsync(User.Id()))!;
 
             int jobId = await jobService.CreateAsync(model, user.CompanyId ?? 0);
+
+            return RedirectToAction(nameof(Details), new { id = jobId });
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Recruiter")]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!await jobService.ExistsAsync(id))
+            {
+                return NotFound();
+            }
+
+            var model = await jobService.GetJobEditModelAsync(id);
+
+            if (model.EmployerId != User.Id())
+            {
+                return Forbid();
+            }
+
+            model.Categories = await categoryService.AllCategoriesAsync();
+            model.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Recruiter")]
+        public async Task<IActionResult> Edit(JobEditFormModel model)
+        {
+            if (!await jobService.ExistsAsync(model.Id))
+            {
+                return NotFound();
+            }
+
+            if (model.EmployerId != User.Id())
+            {
+                return Forbid();
+            }
+
+            if (!await categoryService.ExistsAsync(model.CategoryId))
+            {
+                ModelState.AddModelError(
+                    nameof(model.CategoryId),
+                    ErrorMessages.CategoryDoesNotExistErrorMessage);
+            }
+
+            if (!await employmentTypeService.ExistsAsync(model.EmploymentTypeId))
+            {
+                ModelState.AddModelError(
+                    nameof(model.EmploymentTypeId),
+                    ErrorMessages.EmploymentTypeDoesNotExistErrorMessage);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            int jobId = await jobService.EditJobAsync(model);
 
             return RedirectToAction(nameof(Details), new { id = jobId });
         }

@@ -1,6 +1,6 @@
-﻿@model JobCreateFormModel
+﻿@model JobEditFormModel
 @{
-    ViewBag.Title = "Create Job Offer";
+    ViewBag.Title = "Edit Job Offer";
 }
 
 <h1 class="text-center">@ViewBag.Title</h1>
@@ -12,37 +12,37 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Title">Title</label>
-                <input class="form-control " autocomplete="off" aria-required="true" asp-for="@Model.Title" />
+                <input class="form-control " autocomplete="off" aria-required="true" value="@Model.Title" asp-for="@Model.Title" />
                 <span asp-validation-for="@Model.Title" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Description">Description</label>
-                <textarea class="form-control " autocomplete="off" aria-required="true" asp-for="@Model.Description"></textarea>
+                <textarea class="form-control " autocomplete="off" aria-required="true" value="@Model.Description" asp-for="@Model.Description"></textarea>
                 <span asp-validation-for="@Model.Description" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Requirements">Requirements</label>
-                <textarea class="form-control " autocomplete="off aria-required="true" asp-for="@Model.Requirements"></textarea>
+                <textarea class="form-control " autocomplete="off aria-required="true" value="@Model.Requirements" asp-for="@Model.Requirements"></textarea>
                 <span asp-validation-for="@Model.Requirements" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Responsibilities">Responsibilities</label>
-                <textarea class="form-control " autocomplete="off" aria-required="false" asp-for="@Model.Responsibilities"></textarea>
+                <textarea class="form-control " autocomplete="off" aria-required="false" value="@Model.Responsibilities" asp-for="@Model.Responsibilities"></textarea>
                 <span asp-validation-for="@Model.Responsibilities" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Benefits">Benefits</label>
-                <textarea class="form-control " autocomplete="off" aria-required="false" asp-for="@Model.Benefits"></textarea>
+                <textarea class="form-control " autocomplete="off" aria-required="false" value="@Model.Benefits" asp-for="@Model.Benefits"></textarea>
                 <span asp-validation-for="@Model.Benefits" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.MinSalary">Minimum Salary in BGN</label>
-                <input class="form-control " autocomplete="off" aria-required="true" asp-for="@Model.MinSalary" />
+                <input class="form-control " autocomplete="off" aria-required="true" value="@Model.MinSalary" asp-for="@Model.MinSalary" />
                 <span asp-validation-for="@Model.MinSalary" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.MaxSalary">Maximum Salary in BGN</label>
-                <input class="form-control " autocomplete="off" aria-required="true" asp-for="@Model.MaxSalary" />
+                <input class="form-control " autocomplete="off" aria-required="true" value="@Model.MaxSalary" asp-for="@Model.MaxSalary" />
                 <span asp-validation-for="@Model.MaxSalary" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
@@ -50,7 +50,14 @@
                 <select asp-for="@Model.CategoryId" class="form-control">
                     @foreach (var category in Model.Categories)
                     {
-                        <option value="@category.Id">@category.Name</option>
+                        if (category.Id == Model.CategoryId)
+                        {
+                            <option value="@category.Id" selected>@category.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
                     }
                 </select>
                 <span asp-validation-for="@Model.CategoryId" class="text-danger"></span>
@@ -60,13 +67,22 @@
                 <select asp-for="@Model.EmploymentTypeId" class="form-control">
                     @foreach (var employmentType in Model.EmploymentTypes)
                     {
-                        <option value="@employmentType.Id">@employmentType.Name</option>
+                        if (employmentType.Id == Model.EmploymentTypeId)
+                        {
+                            <option value="@employmentType.Id" selected>@employmentType.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@employmentType.Id">@employmentType.Name</option>
+                        }
                     }
                 </select>
                 <span asp-validation-for="@Model.EmploymentTypeId" class="text-danger"></span>
             </div>
+            <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+            <input type="hidden" name="@nameof(Model.EmployerId)" value=@Model.EmployerId />
             <div class="text-center">
-                <button id="registerSubmit" type="submit" class="btn btn-primary">Create</button>
+                <button id="registerSubmit" type="submit" class="btn btn-primary">Edit</button>
             </div>
         </form>
     </div>
