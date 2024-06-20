@@ -21,6 +21,10 @@ namespace JobFinder.Infrastructure.Data.Configuration
                 .WithOne(j => j.Company)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasOne(c => c.Employer)
+                .WithOne(e => e.Company)
+                .OnDelete(DeleteBehavior.NoAction);
+
             builder.HasData(InitialCompanies);
         }
     }

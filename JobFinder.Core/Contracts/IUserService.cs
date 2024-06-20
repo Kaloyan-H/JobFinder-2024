@@ -7,5 +7,7 @@ namespace JobFinder.Core.Contracts
         public Task<bool> HasCompanyAsync(string userId);
 
         public Task<AppUser?> GetUserAsync(string userId);
+
+        public Task AddCompanyAsync(string userId, int companyId);
     }
 }
