@@ -1,10 +1,10 @@
 ﻿@model CompanyViewModel
 
 @{
-    ViewData["Title"] = Model.Name;
+    ViewBag.Title = Model.Name;
 }
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+<h1 class="text-center">@ViewBag.Title</h1>
 
 <p class="text-center">Description: @Model.Description</p>
 <p class="text-center">Industry: @Model.Industry</p>
