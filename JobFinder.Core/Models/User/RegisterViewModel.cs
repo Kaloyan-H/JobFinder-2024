@@ -10,6 +10,7 @@ namespace JobFinder.Core.Models.User
         [StringLength(
             AppUserConstants.UserNameMaxLength,
             MinimumLength = AppUserConstants.UserNameMinLength)]
+        [Display(Name = "Username")]
         public string UserName { get; set; } = null!;
 
         [Required(ErrorMessage = ErrorMessages.RequiredErrorMessage)]
