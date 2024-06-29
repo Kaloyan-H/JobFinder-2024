@@ -7,12 +7,30 @@
 <h1 class="text-center">@ViewBag.Title</h1>
 
 <p class="text-center">Description: @Model.Description</p>
-<p class="text-center">Industry: @Model.Requirements</p>
+<p class="text-center">Requirements: @Model.Requirements</p>
 
 @if (Model.EmployerId == User.Id())
 {
-    <form class="text-center" asp-controller="Job" asp-action="Edit" method="get">
+    <div class="row justify-content-md-center">
+        <div class="col-md-1">
+            <form class="text-center" asp-controller="Job" asp-action="Edit" method="get">
+                <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+                <button class="btn btn-warning" type="submit" role="button">Edit</button>
+            </form>
+        </div>
+        <div class="col-md-1">
+            <form class="text-center" asp-controller="Job" asp-action="Delete" method="get">
+                <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+                <button class="btn btn-danger" type="submit" role="button">Delete</button>
+            </form>
+        </div>
+    </div>
+}
+
+@if (User.IsInRole(JobSeeker.ToString()))
+{
+    <form class="text-center" asp-controller="Job" asp-action="Apply" method="get">
         <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
-        <button class="btn btn-warning" type="submit" role="button">Edit</button>
+        <button class="btn btn-success" type="submit" role="button">Apply</button>
     </form>
 }
