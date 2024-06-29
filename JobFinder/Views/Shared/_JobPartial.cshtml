@@ -1,0 +1,22 @@
+﻿@model JobServiceModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <div class="card-body text-center">
+            <h4>@Model.Title</h4>
+            <h6>Company: <b>@Model.CompanyName</b></h6>
+            @if (Model.MinSalary == Model.MaxSalary)
+            {
+                <h6>Salary: <b>@Model.MinSalary BGN</b></h6>
+            }
+            else
+            {
+                <h6>Minimum Salary: <b>@Model.MinSalary BGN</b></h6>
+                <h6>Maximum Salary: <b>@Model.MaxSalary BGN</b></h6>
+            }
+            <h6>@Model.EmploymentType</h6>
+            <br />
+            <a asp-controller="Job" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
+        </div>
+    </div>
+</div>

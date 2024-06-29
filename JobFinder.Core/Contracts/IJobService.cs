@@ -1,4 +1,5 @@
 ﻿using JobFinder.Core.Models.Job;
+using JobFinder.Infrastructure.Constants;
 
 namespace JobFinder.Core.Contracts
 {
@@ -13,10 +14,16 @@ namespace JobFinder.Core.Contracts
         /// <returns>The Job Id</returns>
         public Task<int> CreateAsync(JobCreateFormModel model, int companyId);
 
+        public Task<int> EditJobAsync(JobEditFormModel model);
+
+        public Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel);
+
+        public Task<IEnumerable<string>> AllCategoriesNamesAsync();
+
+        public Task<IEnumerable<string>> AllEmploymentTypeNamesAsync();
+
         public Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId);
 
         public Task<JobEditFormModel> GetJobEditModelAsync(int jobId);
-
-        public Task<int> EditJobAsync(JobEditFormModel model);
     }
 }

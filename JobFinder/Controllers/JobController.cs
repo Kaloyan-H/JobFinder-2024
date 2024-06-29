@@ -34,7 +34,20 @@ namespace JobFinder.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> All([FromQuery]AllJobsQueryModel query)
+        {
+            var model = await jobService.AllAsync(query);
+
+            query.TotalJobsCount = model.TotalJobsCount;
+            query.Jobs = model.Jobs;
+            query.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
+            query.Categories = await categoryService.AllCategoriesAsync();
+
+            return View(query);
         }
 
         [HttpGet]

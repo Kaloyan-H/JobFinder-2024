@@ -10,10 +10,17 @@ namespace JobFinder.Core.Services
     public class JobService : IJobService
     {
         private readonly IRepository repository;
+        private readonly ICategoryService categoryService;
+        private readonly IEmploymentTypeService employmentTypeService;
 
-        public JobService(IRepository _repository)
+        public JobService(
+            IRepository _repository,
+            ICategoryService _categoryService,
+            IEmploymentTypeService _employmentTypeService)
         {
             repository = _repository;
+            categoryService = _categoryService;
+            employmentTypeService = _employmentTypeService;
         }
 
         public async Task<bool> ExistsAsync(int jobId)
@@ -42,6 +49,114 @@ namespace JobFinder.Core.Services
             await repository.SaveChangesAsync();
 
             return job.Id;
+        }
+
+        public async Task<int> EditJobAsync(JobEditFormModel model)
+        {
+            Job job = await GetJobAsync(model.Id);
+
+            job.Title = model.Title;
+            job.Description = model.Description;
+            job.Requirements = model.Requirements;
+            job.Responsibilities = model.Responsibilities;
+            job.Benefits = model.Benefits;
+            job.MinSalary = job.MinSalary;
+            job.MaxSalary = job.MaxSalary;
+            job.CategoryId = job.CategoryId;
+            job.EmploymentTypeId = job.EmploymentTypeId;
+
+            await repository.SaveChangesAsync();
+
+            return job.Id;
+        }
+
+        public async Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel)
+        {
+            var jobs = repository.All<Job>();
+
+            if (queryModel.CategoryId != null)
+            {
+                if (!await categoryService.ExistsAsync(queryModel.CategoryId ?? 0))
+                {
+                    throw new ArgumentException(
+                        ErrorMessages.CategoryDoesNotExistErrorMessage,
+                        nameof(queryModel.CategoryId));
+                }
+
+                jobs = jobs.Where(j => j.CategoryId == queryModel.CategoryId);
+            }
+
+            if (queryModel.EmploymentTypeId != null)
+            {
+                if (!await employmentTypeService.ExistsAsync(queryModel.EmploymentTypeId ?? 0))
+                {
+                    throw new ArgumentException(
+                        ErrorMessages.EmploymentTypeDoesNotExistErrorMessage,
+                        nameof(queryModel.EmploymentTypeId));
+                }
+
+                jobs = jobs.Where(j => j.EmploymentTypeId == queryModel.EmploymentTypeId);
+            }
+
+            if (queryModel.SearchTerm != null)
+            {
+                string normalizedSearchTerm = queryModel.SearchTerm.ToLower();
+                jobs = jobs
+                    .Where(j =>
+                        j.Title.ToLower().Contains(normalizedSearchTerm) ||
+                        j.Description.ToLower().Contains(normalizedSearchTerm) ||
+                        j.Requirements.ToLower().Contains(normalizedSearchTerm) ||
+                        j.Company.Name.ToLower().Contains(normalizedSearchTerm) ||
+                        (j.Benefits ?? "").ToLower().Contains(normalizedSearchTerm) ||
+                        (j.Responsibilities ?? "").ToLower().Contains(normalizedSearchTerm));
+            }
+
+            jobs = queryModel.Sorting switch
+            {
+                JobSortingEnum.NewestFirst => jobs.OrderByDescending(j => j.CreatedAt),
+                JobSortingEnum.OldestFirst => jobs.OrderBy(j => j.CreatedAt),
+                JobSortingEnum.SalaryDescending => jobs.OrderByDescending(j => j.MaxSalary),
+                JobSortingEnum.SalaryAscending => jobs.OrderBy(j => j.MinSalary),
+                _ => jobs.OrderByDescending(j => j.CreatedAt)
+            };
+
+            var jobsToShow = await jobs
+                .Skip((queryModel.CurrentPage - 1) * AllJobsQueryModel.JobsPerPage)
+                .Take(AllJobsQueryModel.JobsPerPage)
+                .Select(j => new JobServiceModel()
+                {
+                    Id = j.Id,
+                    Title = j.Title,
+                    Benefits = j.Benefits,
+                    CreatedAt = j.CreatedAt,
+                    MinSalary = j.MinSalary,
+                    MaxSalary = j.MaxSalary,
+                    Description = j.Description,
+                    Requirements = j.Requirements,
+                    Responsibilities = j.Responsibilities,
+                    Category = j.Category.Name,
+                    CompanyName = j.Company.Name,
+                    EmploymentType = j.EmploymentType.Name,
+                })
+                .ToListAsync();
+
+            int totalJobs = await jobs.CountAsync();
+
+            return new JobQueryServiceModel()
+            {
+                Jobs = jobsToShow,
+                TotalJobsCount = totalJobs,
+            };
+        }
+
+        public Task<IEnumerable<string>> AllCategoriesNamesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<string>> AllEmploymentTypeNamesAsync()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId)
@@ -89,25 +204,6 @@ namespace JobFinder.Core.Services
             };
 
             return jobModel;
-        }
-
-        public async Task<int> EditJobAsync(JobEditFormModel model)
-        {
-            Job job = await GetJobAsync(model.Id);
-
-            job.Title = model.Title;
-            job.Description = model.Description;
-            job.Requirements = model.Requirements;
-            job.Responsibilities = model.Responsibilities;
-            job.Benefits = model.Benefits;
-            job.MinSalary = job.MinSalary;
-            job.MaxSalary = job.MaxSalary;
-            job.CategoryId = job.CategoryId;
-            job.EmploymentTypeId = job.EmploymentTypeId;
-
-            await repository.SaveChangesAsync();
-
-            return job.Id;
         }
 
         private async Task<Job> GetJobAsync(int jobId)
