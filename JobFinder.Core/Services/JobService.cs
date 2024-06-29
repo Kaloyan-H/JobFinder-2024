@@ -123,21 +123,7 @@ namespace JobFinder.Core.Services
             var jobsToShow = await jobs
                 .Skip((queryModel.CurrentPage - 1) * AllJobsQueryModel.JobsPerPage)
                 .Take(AllJobsQueryModel.JobsPerPage)
-                .Select(j => new JobServiceModel()
-                {
-                    Id = j.Id,
-                    Title = j.Title,
-                    Benefits = j.Benefits,
-                    CreatedAt = j.CreatedAt,
-                    MinSalary = j.MinSalary,
-                    MaxSalary = j.MaxSalary,
-                    Description = j.Description,
-                    Requirements = j.Requirements,
-                    Responsibilities = j.Responsibilities,
-                    Category = j.Category.Name,
-                    CompanyName = j.Company.Name,
-                    EmploymentType = j.EmploymentType.Name,
-                })
+                .ProjectToJobServiceModel()
                 .ToListAsync();
 
             int totalJobs = await jobs.CountAsync();
