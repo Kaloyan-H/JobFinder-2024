@@ -13,22 +13,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.UserName">Username</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.UserName" />
+                <input class="form-control " autocomplete="username" aria-required="true" placeholder="GavinBelson27" asp-for="@Model.UserName" />
                 <span asp-validation-for="@Model.UserName" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Email">Email</label>
-                <input class="form-control " autocomplete="username" aria-required="true" asp-for="@Model.Email" />
+                <input class="form-control " autocomplete="username" aria-required="true" placeholder="gavin.belson@@hooli.com" asp-for="@Model.Email" />
                 <span asp-validation-for="@Model.Email" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.FirstName">First name</label>
-                <input class="form-control " autocomplete="given-name" aria-required="true" asp-for="@Model.FirstName" />
+                <input class="form-control " autocomplete="given-name" aria-required="true" placeholder="Gavin" asp-for="@Model.FirstName" />
                 <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.LastName">Last name</label>
-                <input class="form-control " autocomplete="family-name" aria-required="true" asp-for="@Model.LastName" />
+                <input class="form-control " autocomplete="family-name" aria-required="true" placeholder="Belson" asp-for="@Model.LastName" />
                 <span asp-validation-for="@Model.LastName" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
@@ -43,17 +43,17 @@
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Bio">Bio</label>
-                <textarea class="form-control " autocomplete="off" aria-required="true" asp-for="@Model.Bio"></textarea>
+                <textarea class="form-control " autocomplete="off" aria-required="true" placeholder="My name is Gavin Belson and I am the CEO of Hooli..." asp-for="@Model.Bio"></textarea>
                 <span asp-validation-for="@Model.Bio" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.Password">Password</label>
-                <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.Password" />
+                <input class="form-control" type="password" autocomplete="new-password" placeholder="Password" aria-required="true" asp-for="@Model.Password" />
                 <span asp-validation-for="@Model.Password" class="text-danger"></span>
             </div>
             <div class="text-center mb-3">
                 <label asp-for="@Model.ConfirmPassword">Confirm Password</label>
-                <input class="form-control" type="password" autocomplete="new-password" aria-required="true" asp-for="@Model.ConfirmPassword" />
+                <input class="form-control" type="password" autocomplete="new-password" placeholder="Confirm Password" aria-required="true" asp-for="@Model.ConfirmPassword" />
                 <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
             </div>
             <div class="text-center">
