@@ -159,7 +159,10 @@ namespace JobFinder.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View();
+                model.Categories = await categoryService.AllCategoriesAsync();
+                model.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
+
+                return View(model);
             }
 
             int jobId = await jobService.EditJobAsync(model);

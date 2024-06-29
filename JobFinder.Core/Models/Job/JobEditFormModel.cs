@@ -66,7 +66,12 @@ namespace JobFinder.Core.Models.Job
         {
             if (MinSalary > MaxSalary)
             {
-                yield return new ValidationResult(ErrorMessages.MinSalaryHigherErrorMessage);
+                yield return new ValidationResult(
+                    ErrorMessages.MinSalaryHigherErrorMessage,
+                    new List<string>()
+                    {
+                        nameof(MinSalary)
+                    });
             }
         }
     }
