@@ -60,7 +60,14 @@ namespace JobFinder.Controllers
             }
 
             var userId = User.Id();
-            var companyId = await companyService.CreateAsync(model, userId);
+
+            if (userId == null)
+            {
+                return BadRequest();
+            }
+
+            model.EmployerId = userId;
+            var companyId = await companyService.CreateAsync(model);
 
             try
             {

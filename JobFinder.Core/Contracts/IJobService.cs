@@ -1,5 +1,5 @@
 ﻿using JobFinder.Core.Models.Job;
-using JobFinder.Infrastructure.Constants;
+using JobFinder.Infrastructure.Data.Models;
 
 namespace JobFinder.Core.Contracts
 {
@@ -11,8 +11,8 @@ namespace JobFinder.Core.Contracts
         /// Asynchronously creates a new Job entity model and adds it to the database.
         /// </summary>
         /// <param name="model"></param>
-        /// <returns>The Job Id</returns>
-        public Task<int> CreateAsync(JobCreateFormModel model, int companyId);
+        /// <returns>The Job entity Id</returns>
+        public Task<int> CreateAsync(JobCreateFormModel model);
 
         public Task<int> EditJobAsync(JobEditFormModel model);
 

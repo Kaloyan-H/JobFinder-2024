@@ -23,5 +23,7 @@ namespace JobFinder.Core.Models.Company
             CompanyConstants.IndustryMaxLength,
             MinimumLength = CompanyConstants.IndustryMinLength)]
         public string Industry { get; set; } = null!;
+
+        public string? EmployerId { get; set; }
     }
 }

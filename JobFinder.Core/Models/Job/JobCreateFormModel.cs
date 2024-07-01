@@ -52,6 +52,8 @@ namespace JobFinder.Core.Models.Job
         [Required(ErrorMessage = ErrorMessages.RequiredErrorMessage)]
         public int EmploymentTypeId { get; set; }
 
+        public int CompanyId { get; set; }
+
         public IEnumerable<JobCategoryServiceModel> Categories { get; set; }
             = new List<JobCategoryServiceModel>();
 

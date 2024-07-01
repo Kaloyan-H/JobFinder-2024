@@ -102,7 +102,16 @@ namespace JobFinder.Controllers
 
             AppUser user = (await userService.GetUserAsync(User.Id()))!;
 
-            int jobId = await jobService.CreateAsync(model, user.CompanyId ?? 0);
+            int companyId = user.CompanyId ?? 0;
+
+            if (companyId == 0)
+            {
+                return RedirectToAction("Create", "Company");
+            }
+
+            model.CompanyId = companyId;
+
+            int jobId = await jobService.CreateAsync(model);
 
             return RedirectToAction(nameof(Details), new { id = jobId });
         }

@@ -28,7 +28,7 @@ namespace JobFinder.Core.Services
                 .AllReadOnly<Job>()
                 .AnyAsync(j => j.Id == jobId);
 
-        public async Task<int> CreateAsync(JobCreateFormModel model, int companyId)
+        public async Task<int> CreateAsync(JobCreateFormModel model)
         {
             Job job = new Job()
             {
@@ -40,7 +40,7 @@ namespace JobFinder.Core.Services
                 MinSalary = model.MinSalary,
                 MaxSalary = model.MaxSalary,
                 CreatedAt = DateTime.UtcNow,
-                CompanyId = companyId,
+                CompanyId = model.CompanyId,
                 CategoryId = model.CategoryId,
                 EmploymentTypeId = model.EmploymentTypeId,
             };
