@@ -39,6 +39,9 @@
         {
             public const int CoverLetterMinLength = 50;
             public const int CoverLetterMaxLength = 2000;
+
+            public const int ResumeURLMinLength = 3;
+            public const int ResumeURLMaxLength = 2048;
         }
 
         public static class CompanyConstants

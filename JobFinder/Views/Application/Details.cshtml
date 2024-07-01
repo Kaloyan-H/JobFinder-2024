@@ -1,0 +1,8 @@
+﻿@model ApplicationDetailsViewModel
+
+<h1 class="text-center">@Model.JobTitle at @Model.CompanyName</h1>
+
+<p class="text-center">Name: @Model.ApplicantFirstName @Model.ApplicantLastName</p>
+<p class="text-center">Email: @Model.ApplicantEmail</p>
+<p class="text-center">Cover Letter: @Model.CoverLetter</p>
+<p class="text-center">Resume URL: <a href="@Model.ResumeURL">@Model.ResumeURL</a></p>

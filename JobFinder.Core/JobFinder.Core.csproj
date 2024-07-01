@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\Application\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\JobFinder.Infrastructure\JobFinder.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -18,6 +18,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IRoleInitializer, RoleInitializer>();
+            services.AddScoped<IApplicationService, ApplicationService>();
             services.AddScoped<IEmploymentTypeService, EmploymentTypeService>();
 
             return services;

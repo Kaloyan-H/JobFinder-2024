@@ -1,4 +1,5 @@
 ﻿@model JobDetailsViewModel
+@inject IApplicationService applicationService
 
 @{
     ViewBag.Title = Model.Title;
@@ -29,8 +30,19 @@
 
 @if (User.IsInRole(JobSeeker.ToString()))
 {
-    <form class="text-center" asp-controller="Job" asp-action="Apply" method="get">
-        <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
-        <button class="btn btn-success" type="submit" role="button">Apply</button>
-    </form>
+    if (!(await applicationService.AppliedAlreadyAsync(User.Id(), Model.Id)))
+    {
+        <form class="text-center" asp-controller="Application" asp-action="Create" method="get">
+            <input type="hidden" name="jobId" value=@Model.Id />
+            <button class="btn btn-success" type="submit" role="button">Apply</button>
+        </form>
+    }
+    else
+    {
+        <form class="text-center" asp-controller="Application" asp-action="Details" method="get">
+            <input type="hidden" name="id" value=@await applicationService.GetApplicationIdAsync(User.Id(), Model.Id) />
+            <p class="text-center text-warning">You've already applied for this job!</p>
+            <button class="btn btn-warning" type="submit" role="button">See Application</button>
+        </form>
+    }
 }

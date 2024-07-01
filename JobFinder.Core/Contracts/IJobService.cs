@@ -25,5 +25,7 @@ namespace JobFinder.Core.Contracts
         public Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId);
 
         public Task<JobEditFormModel> GetJobEditModelAsync(int jobId);
+
+        public Task<Job> GetJobReadOnlyAsync(int jobId);
     }
 }
