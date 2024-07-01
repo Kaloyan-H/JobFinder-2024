@@ -9,8 +9,7 @@ using static JobFinder.Infrastructure.Constants.RolesEnum;
 
 namespace JobFinder.Controllers
 {
-    [Authorize]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly UserManager<AppUser> userManager;
         private readonly RoleManager<AppRole> roleManager;

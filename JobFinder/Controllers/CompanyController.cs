@@ -7,8 +7,7 @@ using System.Security.Claims;
 
 namespace JobFinder.Controllers
 {
-    [Authorize]
-    public class CompanyController : Controller
+    public class CompanyController : BaseController
     {
         private readonly ICompanyService companyService;
         private readonly IUserService userService;

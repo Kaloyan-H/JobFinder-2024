@@ -10,7 +10,7 @@ using System.Security.Claims;
 namespace JobFinder.Controllers
 {
     [Authorize]
-    public class JobController : Controller
+    public class JobController : BaseController
     {
         private readonly IJobService jobService;
         private readonly IUserService userService;

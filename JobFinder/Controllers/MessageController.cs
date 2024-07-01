@@ -3,8 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobFinder.Controllers
 {
-    [Authorize]
-    public class MessageController : Controller
+    public class MessageController : BaseController
     {
         public IActionResult Index()
         {
