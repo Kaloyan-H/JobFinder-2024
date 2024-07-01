@@ -38,7 +38,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> All([FromQuery]AllJobsQueryModel query)
+        public async Task<IActionResult> All([FromQuery] AllJobsQueryModel query)
         {
             var model = await jobService.AllAsync(query);
 
@@ -58,7 +58,7 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            var model = await jobService.GetJobDetailsModelAsync(id);
+            JobDetailsViewModel model = await jobService.GetJobDetailsModelAsync(id);
 
             return View(model);
         }
