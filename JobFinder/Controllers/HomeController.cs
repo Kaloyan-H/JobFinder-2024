@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using JobFinder.Core.Models.Home;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobFinder.Controllers
 {
@@ -14,6 +15,7 @@ namespace JobFinder.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             var model = new HomeIndexViewModel();
@@ -21,6 +23,7 @@ namespace JobFinder.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
