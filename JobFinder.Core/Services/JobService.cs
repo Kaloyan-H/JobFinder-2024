@@ -60,10 +60,10 @@ namespace JobFinder.Core.Services
             job.Requirements = model.Requirements;
             job.Responsibilities = model.Responsibilities;
             job.Benefits = model.Benefits;
-            job.MinSalary = job.MinSalary;
-            job.MaxSalary = job.MaxSalary;
-            job.CategoryId = job.CategoryId;
-            job.EmploymentTypeId = job.EmploymentTypeId;
+            job.MinSalary = model.MinSalary;
+            job.MaxSalary = model.MaxSalary;
+            job.CategoryId = model.CategoryId;
+            job.EmploymentTypeId = model.EmploymentTypeId;
 
             await repository.SaveChangesAsync();
 
