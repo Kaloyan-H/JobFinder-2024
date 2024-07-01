@@ -18,10 +18,6 @@ namespace JobFinder.Core.Contracts
 
         public Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel);
 
-        public Task<IEnumerable<string>> AllCategoriesNamesAsync();
-
-        public Task<IEnumerable<string>> AllEmploymentTypeNamesAsync();
-
         public Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId);
 
         public Task<JobEditFormModel> GetJobEditModelAsync(int jobId);

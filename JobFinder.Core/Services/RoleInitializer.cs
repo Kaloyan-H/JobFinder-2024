@@ -21,6 +21,7 @@ namespace JobFinder.Core.Services
                 Recruiter.ToString(),
                 JobSeeker.ToString(),
             };
+
             foreach (var roleName in roleNames)
             {
                 if (!await roleManager.RoleExistsAsync(roleName))

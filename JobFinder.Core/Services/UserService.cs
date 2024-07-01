@@ -32,7 +32,7 @@ namespace JobFinder.Core.Services
         {
             var user = await GetUserAsync(userId);
 
-            if (user == null) throw new ArgumentException(ErrorMessages.UserDoesNotExistErrorMessage, nameof(user));
+            if (user == null) throw new ArgumentException(ErrorMessages.UserDoesNotExistErrorMessage, nameof(userId));
 
             user.CompanyId = companyId;
 

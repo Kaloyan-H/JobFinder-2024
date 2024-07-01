@@ -135,21 +135,11 @@ namespace JobFinder.Core.Services
             };
         }
 
-        public Task<IEnumerable<string>> AllCategoriesNamesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<string>> AllEmploymentTypeNamesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId)
         {
             Job job = await GetJobReadOnlyAsync(jobId);
 
-            JobDetailsViewModel jobModel = new JobDetailsViewModel()
+            return new JobDetailsViewModel()
             {
                 Id = job.Id,
                 Title = job.Title,
@@ -166,15 +156,13 @@ namespace JobFinder.Core.Services
                 EmploymentType = job.EmploymentType.Name,
                 EmployerId = job.Company.EmployerId
             };
-
-            return jobModel;
         }
 
         public async Task<JobEditFormModel> GetJobEditModelAsync(int jobId)
         {
             Job job = await GetJobReadOnlyAsync(jobId);
 
-            JobEditFormModel jobModel = new JobEditFormModel()
+            return new JobEditFormModel()
             {
                 Id = jobId,
                 Title = job.Title,
@@ -188,13 +176,11 @@ namespace JobFinder.Core.Services
                 EmploymentTypeId = job.EmploymentTypeId,
                 EmployerId = job.Company.EmployerId
             };
-
-            return jobModel;
         }
 
-        private async Task<Job> GetJobAsync(int jobId)
+        public async Task<Job> GetJobReadOnlyAsync(int jobId)
         {
-            var job = await repository.All<Job>()
+            var job = await repository.AllReadOnly<Job>()
                 .Include(j => j.Category)
                 .Include(j => j.EmploymentType)
                 .Include(j => j.Company)
@@ -208,9 +194,9 @@ namespace JobFinder.Core.Services
             return job;
         }
 
-        private async Task<Job> GetJobReadOnlyAsync(int jobId)
+        private async Task<Job> GetJobAsync(int jobId)
         {
-            var job = await repository.AllReadOnly<Job>()
+            var job = await repository.All<Job>()
                 .Include(j => j.Category)
                 .Include(j => j.EmploymentType)
                 .Include(j => j.Company)
