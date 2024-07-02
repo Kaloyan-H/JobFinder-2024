@@ -66,6 +66,17 @@ namespace JobFinder.Controllers
         [HttpGet]
         [Authorize(Roles = "Recruiter")]
         [HasCompany]
+        public async Task<IActionResult> Mine()
+        {
+            string userId = User.Id();
+            IEnumerable<JobServiceModel> model = await jobService.AllByEmployerIdAsync(userId);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Recruiter")]
+        [HasCompany]
         public async Task<IActionResult> Create()
         {
             var model = new JobCreateFormModel();

@@ -135,6 +135,13 @@ namespace JobFinder.Core.Services
             };
         }
 
+        public async Task<IEnumerable<JobServiceModel>> AllByEmployerIdAsync(string employerId)
+            => await repository
+                .AllReadOnly<Job>()
+                .Where(j => j.Company.EmployerId == employerId)
+                .ProjectToJobServiceModel()
+                .ToListAsync();
+
         public async Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId)
         {
             Job job = await GetJobReadOnlyAsync(jobId);
