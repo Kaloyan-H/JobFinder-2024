@@ -18,6 +18,8 @@ namespace JobFinder.Core.Contracts
 
         public Task<int> EditJobAsync(JobEditFormModel model);
 
+        public Task<bool> DeleteJobAsync(int jobId);
+
         public Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel);
 
         public Task<IEnumerable<JobServiceModel>> AllByEmployerIdAsync(string employerId);
@@ -25,6 +27,8 @@ namespace JobFinder.Core.Contracts
         public Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId);
 
         public Task<JobEditFormModel> GetJobEditModelAsync(int jobId);
+
+        public Task<JobDeleteViewModel> GetJobDeleteModelAsync(int jobId);
 
         public Task<Job> GetJobReadOnlyAsync(int jobId);
     }

@@ -194,5 +194,50 @@ namespace JobFinder.Controllers
 
             return RedirectToAction(nameof(Details), new { id = jobId });
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Recruiter")]
+        [HasCompany]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (!await jobService.ExistsAsync(id))
+            {
+                return NotFound();
+            }
+
+            var model = await jobService.GetJobDeleteModelAsync(id);
+
+            if (!await jobService.JobIsOwnedByEmployerAsync(id, User.Id()))
+            {
+                return Forbid();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Recruiter")]
+        [HasCompany]
+        public async Task<IActionResult> Delete(JobDeleteViewModel model)
+        {
+            if (!await jobService.ExistsAsync(model.Id))
+            {
+                return NotFound();
+            }
+
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
+            {
+                return Forbid();
+            }
+
+            var success = await jobService.DeleteJobAsync(model.Id);
+
+            if (!success)
+            {
+                return BadRequest();
+            }
+
+            return RedirectToAction(nameof(Mine));
+        }
     }
 }

@@ -63,23 +63,45 @@ namespace JobFinder.Core.Services
 
             if (job != null)
             {
-            job.Title = model.Title;
-            job.Description = model.Description;
-            job.Requirements = model.Requirements;
-            job.Responsibilities = model.Responsibilities;
-            job.Benefits = model.Benefits;
-            job.MinSalary = model.MinSalary;
-            job.MaxSalary = model.MaxSalary;
-            job.CategoryId = model.CategoryId;
-            job.EmploymentTypeId = model.EmploymentTypeId;
+                job.Title = model.Title;
+                job.Description = model.Description;
+                job.Requirements = model.Requirements;
+                job.Responsibilities = model.Responsibilities;
+                job.Benefits = model.Benefits;
+                job.MinSalary = model.MinSalary;
+                job.MaxSalary = model.MaxSalary;
+                job.CategoryId = model.CategoryId;
+                job.EmploymentTypeId = model.EmploymentTypeId;
 
-            await repository.SaveChangesAsync();
+                await repository.SaveChangesAsync();
 
-            return job.Id;
-        }
+                return job.Id;
+            }
 
             return 0;
         }
+
+        public async Task<bool> DeleteJobAsync(int jobId)
+        {
+            var job = await repository.GetByIdAsync<Job>(jobId);
+
+            if (job != null)
+            {
+                List<Application> applications = await repository.All<Application>()
+                    .Where(a => a.JobId == job.Id)
+                    .ToListAsync();
+
+                repository.BatchDelete(applications);
+                repository.Delete(job);
+
+                await repository.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
         public async Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel)
         {
             var jobs = repository.All<Job>();
@@ -195,25 +217,21 @@ namespace JobFinder.Core.Services
             };
         }
 
+        public async Task<JobDeleteViewModel> GetJobDeleteModelAsync(int jobId)
+        {
+            Job job = await GetJobReadOnlyAsync(jobId);
+
+            return new JobDeleteViewModel()
+            {
+                Id = job.Id,
+                Title = job.Title,
+                EmployerId = job.Company.EmployerId
+            };
+        }
+
         public async Task<Job> GetJobReadOnlyAsync(int jobId)
         {
             var job = await repository.AllReadOnly<Job>()
-                .Include(j => j.Category)
-                .Include(j => j.EmploymentType)
-                .Include(j => j.Company)
-                .FirstOrDefaultAsync(j => j.Id == jobId);
-
-            if (job == null)
-            {
-                throw new ArgumentException(ErrorMessages.JobDoesNotExistErrorMessage, nameof(jobId));
-            }
-
-            return job;
-        }
-
-        private async Task<Job> GetJobAsync(int jobId)
-        {
-            var job = await repository.All<Job>()
                 .Include(j => j.Category)
                 .Include(j => j.EmploymentType)
                 .Include(j => j.Company)
