@@ -7,6 +7,8 @@ namespace JobFinder.Core.Contracts
     {
         public Task<bool> ExistsAsync(int jobId);
 
+        public Task<bool> JobIsOwnedByEmployerAsync(int jobId, string employerId);
+
         /// <summary>
         /// Asynchronously creates a new Job entity model and adds it to the database.
         /// </summary>

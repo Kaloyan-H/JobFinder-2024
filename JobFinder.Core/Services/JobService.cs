@@ -28,6 +28,12 @@ namespace JobFinder.Core.Services
                 .AllReadOnly<Job>()
                 .AnyAsync(j => j.Id == jobId);
 
+        public async Task<bool> JobIsOwnedByEmployerAsync(int jobId, string employerId)
+        {
+            return await repository.AllReadOnly<Job>()
+                .AnyAsync(j => j.Id == jobId && j.Company.EmployerId == employerId);
+        }
+
         public async Task<int> CreateAsync(JobCreateFormModel model)
         {
             Job job = new Job()
