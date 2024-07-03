@@ -75,7 +75,7 @@ namespace JobFinder.Controllers
             }
             catch (ArgumentException ex)
             {
-                throw;
+                return BadRequest(ex.Message);
             }
 
             return RedirectToAction(nameof(Index));
