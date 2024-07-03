@@ -25,14 +25,14 @@ namespace JobFinder.Core.Services
         }
 
         public async Task<AppUser?> GetUserAsync(string userId)
-            => await repository.All<AppUser>()
-                .FirstOrDefaultAsync(au => au.Id == userId);
+            => await repository.GetByIdAsync<AppUser>(userId);
 
         public async Task AddCompanyAsync(string userId, int companyId)
         {
-            var user = await GetUserAsync(userId);
+            var user = await repository.GetByIdAsync<AppUser>(userId);
 
-            if (user == null) throw new ArgumentException(ErrorMessages.UserDoesNotExistErrorMessage, nameof(userId));
+            if (user == null)
+                throw new ArgumentException(ErrorMessages.UserDoesNotExistErrorMessage, nameof(userId));
 
             user.CompanyId = companyId;
 

@@ -59,8 +59,10 @@ namespace JobFinder.Core.Services
 
         public async Task<int> EditJobAsync(JobEditFormModel model)
         {
-            Job job = await GetJobAsync(model.Id);
+            var job = await repository.GetByIdAsync<Job>(model.Id);
 
+            if (job != null)
+            {
             job.Title = model.Title;
             job.Description = model.Description;
             job.Requirements = model.Requirements;
@@ -76,6 +78,8 @@ namespace JobFinder.Core.Services
             return job.Id;
         }
 
+            return 0;
+        }
         public async Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel)
         {
             var jobs = repository.All<Job>();
