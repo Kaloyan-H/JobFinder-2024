@@ -5,7 +5,13 @@
     @if (User?.Identity?.IsAuthenticated ?? false)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Index">Jobs</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Index">All Job Offers</a>
         </li>
+        @if (User.IsInRole(Recruiter.ToString()))
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Mine">My Job Offers</a>
+            </li>
+        }
     }
 </ul>
