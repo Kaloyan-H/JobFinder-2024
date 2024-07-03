@@ -132,6 +132,7 @@ namespace JobFinder.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Recruiter")]
+        [HasCompany]
         public async Task<IActionResult> Edit(int id)
         {
             if (!await jobService.ExistsAsync(id))
@@ -141,7 +142,7 @@ namespace JobFinder.Controllers
 
             var model = await jobService.GetJobEditModelAsync(id);
 
-            if (model.EmployerId != User.Id())
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
             {
                 return Forbid();
             }
@@ -154,6 +155,7 @@ namespace JobFinder.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Recruiter")]
+        [HasCompany]
         public async Task<IActionResult> Edit(JobEditFormModel model)
         {
             if (!await jobService.ExistsAsync(model.Id))
@@ -161,7 +163,7 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            if (model.EmployerId != User.Id())
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
             {
                 return Forbid();
             }
