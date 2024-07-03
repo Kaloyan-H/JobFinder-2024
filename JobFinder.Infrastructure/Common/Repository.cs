@@ -17,6 +17,11 @@ namespace JobFinder.Infrastructure.Common
             return context.Set<T>();
         }
 
+        public async Task<T?> GetByIdAsync<T>(object id) where T : class
+        {
+            return await DbSet<T>().FindAsync(id);
+        }
+
         /// <summary>
         /// Retrieves all entities of the specified type.
         /// </summary>
@@ -39,7 +44,7 @@ namespace JobFinder.Infrastructure.Common
         }
 
         /// <summary>
-        /// Asynchronously adds an entity of the specified type to it's corresponding DbSet.
+        /// Asynchronously adds an entity of the specified type to its corresponding DbSet.
         /// </summary>
         /// <typeparam name="T">The type of entity to add.</typeparam>
         /// <param name="entity">The entity to be added.</param>
@@ -50,7 +55,27 @@ namespace JobFinder.Infrastructure.Common
         }
 
         /// <summary>
-        /// Asycnhronously saves changes to the DB context.
+        /// Removes an antity of the specified type from the database.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entity"></param>
+        public void Delete<T>(T entity) where T : class
+        {
+            DbSet<T>().Remove(entity);
+        }
+
+        /// <summary>
+        /// Removes a range of entities of the specified type from the database.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="entities"></param>
+        public void BatchDelete<T>(IEnumerable<T> entities) where T : class
+        {
+            DbSet<T>().RemoveRange(entities);
+        }
+
+        /// <summary>
+        /// Asynchronously saves changes to the DB context.
         /// </summary>
         /// <returns></returns>
         public async Task<int> SaveChangesAsync()
