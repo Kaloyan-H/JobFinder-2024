@@ -1,8 +1,6 @@
-﻿using JobFinder.Models;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using JobFinder.Core.Models.Home;
+﻿using JobFinder.Core.Models.Home;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobFinder.Controllers
 {
@@ -25,9 +23,17 @@ namespace JobFinder.Controllers
 
         [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(int statusCode)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            switch (statusCode)
+            {
+                case 400:
+                case 401:
+                case 404:
+                    return View($"Error{statusCode}");
+                default:
+                    return View();
+            }
         }
     }
 }

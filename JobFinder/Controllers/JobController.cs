@@ -58,9 +58,16 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
+            try
+            {
             JobDetailsViewModel model = await jobService.GetJobDetailsModelAsync(id);
 
             return View(model);
+        }
+            catch (ArgumentException)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]
