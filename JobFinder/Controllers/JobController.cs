@@ -6,6 +6,7 @@ using JobFinder.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using JobFinder.Core.Extensions;
 
 namespace JobFinder.Controllers
 {
@@ -51,7 +52,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id, string information)
         {
             if (!await jobService.ExistsAsync(id))
             {
@@ -60,10 +61,15 @@ namespace JobFinder.Controllers
 
             try
             {
-            JobDetailsViewModel model = await jobService.GetJobDetailsModelAsync(id);
+                JobDetailsViewModel model = await jobService.GetJobDetailsModelAsync(id);
 
-            return View(model);
-        }
+                if (model.GetInformation() != information)
+                {
+                    return BadRequest();
+                }
+
+                return View(model);
+            }
             catch (ArgumentException)
             {
                 return StatusCode(500);
@@ -134,7 +140,7 @@ namespace JobFinder.Controllers
 
             int jobId = await jobService.CreateAsync(model);
 
-            return RedirectToAction(nameof(Details), new { id = jobId });
+            return RedirectToAction(nameof(Details), new { id = jobId, information = model.GetInformation() });
         }
 
         [HttpGet]
@@ -199,7 +205,7 @@ namespace JobFinder.Controllers
 
             int jobId = await jobService.EditJobAsync(model);
 
-            return RedirectToAction(nameof(Details), new { id = jobId });
+            return RedirectToAction(nameof(Details), new { id = jobId, information = model.GetInformation() });
         }
 
         [HttpGet]

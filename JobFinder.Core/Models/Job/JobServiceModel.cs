@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using JobFinder.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobFinder.Core.Models.Job
 {
-    public class JobServiceModel
+    public class JobServiceModel : IJobModel
     {
         public int Id { get; set; }
 

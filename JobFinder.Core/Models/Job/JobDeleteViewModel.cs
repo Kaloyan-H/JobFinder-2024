@@ -1,6 +1,8 @@
-﻿namespace JobFinder.Core.Models.Job
+﻿using JobFinder.Core.Contracts;
+
+namespace JobFinder.Core.Models.Job
 {
-    public class JobDeleteViewModel
+    public class JobDeleteViewModel : IJobModel
     {
         public int Id { get; set; }
 

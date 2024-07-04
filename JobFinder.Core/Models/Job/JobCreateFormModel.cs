@@ -1,10 +1,13 @@
-﻿using JobFinder.Infrastructure.Constants;
+﻿using JobFinder.Core.Contracts;
+using JobFinder.Infrastructure.Constants;
 using System.ComponentModel.DataAnnotations;
 using static JobFinder.Infrastructure.Constants.ValidationConstants;
 
 namespace JobFinder.Core.Models.Job
 {
-    public class JobCreateFormModel : IValidatableObject
+    public class JobCreateFormModel :
+        IValidatableObject,
+        IJobModel
     {
         [Required(ErrorMessage = ErrorMessages.RequiredErrorMessage)]
         [StringLength(

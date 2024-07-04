@@ -1,10 +1,13 @@
-﻿using JobFinder.Infrastructure.Constants;
+﻿using JobFinder.Core.Contracts;
+using JobFinder.Infrastructure.Constants;
 using System.ComponentModel.DataAnnotations;
 using static JobFinder.Infrastructure.Constants.ValidationConstants;
 
 namespace JobFinder.Core.Models.Job
 {
-    public class JobEditFormModel : IValidatableObject
+    public class JobEditFormModel :
+        IValidatableObject,
+        IJobModel
     {
         public int Id { get; set; }
 

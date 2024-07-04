@@ -44,9 +44,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{ 
+    endpoints.MapControllerRoute(
+        name: "Job Details",
+        pattern: "Job/Details/{id}/{information}",
+        defaults: new { Controller = "Job", Action = "Details" });
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
 
 await app.RunAsync();
