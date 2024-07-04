@@ -1,4 +1,5 @@
 ﻿using JobFinder.Core.Models.Application;
+using JobFinder.Core.Models.Job;
 
 namespace JobFinder.Core.Contracts
 {
@@ -9,6 +10,8 @@ namespace JobFinder.Core.Contracts
         public Task<bool> AppliedAlreadyAsync(string userId, int jobId);
 
         public Task<int> CreateAsync(ApplicationCreateFormModel model);
+
+        public Task<IEnumerable<JobApplicationServiceModel>> AllApplicationsByJobIdAsync(int jobId);
 
         public Task<ApplicationCreateFormModel> GetApplicationCreateModelAsync(int jobId);
 

@@ -1,5 +1,6 @@
 ﻿using JobFinder.Core.Contracts;
 using JobFinder.Core.Models.Application;
+using JobFinder.Core.Models.Job;
 using JobFinder.Infrastructure.Common;
 using JobFinder.Infrastructure.Constants;
 using JobFinder.Infrastructure.Data.Models;
@@ -18,7 +19,6 @@ namespace JobFinder.Core.Services
         {
             repository = _repository;
             jobService = _jobService;
-
         }
 
         public async Task<bool> ExistsAsync(int applicationId)
@@ -52,6 +52,18 @@ namespace JobFinder.Core.Services
 
             return application.Id;
         }
+
+        public async Task<IEnumerable<JobApplicationServiceModel>> AllApplicationsByJobIdAsync(int jobId)
+            => await repository.AllReadOnly<Application>()
+                .Where(a => a.JobId == jobId)
+                .Select(a => new JobApplicationServiceModel()
+                {
+                    Id = a.Id,
+                    ApplicantFirstName = a.Applicant.FirstName,
+                    ApplicantLastName = a.Applicant.LastName,
+                    ApplicantEmail = a.Applicant.Email,
+                })
+                .ToListAsync();
 
         public async Task<ApplicationCreateFormModel> GetApplicationCreateModelAsync(int jobId)
         {

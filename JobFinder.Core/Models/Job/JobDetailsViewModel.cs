@@ -29,5 +29,8 @@
         public int CompanyId { get; set; }
 
         public string EmployerId { get; set; } = null!;
+
+        public IEnumerable<JobApplicationServiceModel> Applications { get; set; }
+            = new List<JobApplicationServiceModel>();
     }
 }

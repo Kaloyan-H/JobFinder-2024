@@ -4,6 +4,7 @@ using JobFinder.Infrastructure.Common;
 using JobFinder.Infrastructure.Constants;
 using JobFinder.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace JobFinder.Core.Services
 {
@@ -12,15 +13,18 @@ namespace JobFinder.Core.Services
         private readonly IRepository repository;
         private readonly ICategoryService categoryService;
         private readonly IEmploymentTypeService employmentTypeService;
+        private readonly IServiceProvider serviceProvider;
 
         public JobService(
             IRepository _repository,
             ICategoryService _categoryService,
-            IEmploymentTypeService _employmentTypeService)
+            IEmploymentTypeService _employmentTypeService,
+            IServiceProvider _serviceProvider)
         {
             repository = _repository;
             categoryService = _categoryService;
             employmentTypeService = _employmentTypeService;
+            serviceProvider = _serviceProvider;
         }
 
         public async Task<bool> ExistsAsync(int jobId)
@@ -178,6 +182,15 @@ namespace JobFinder.Core.Services
         {
             Job job = await GetJobReadOnlyAsync(jobId);
 
+            var applicationService = serviceProvider.GetRequiredService<IApplicationService>();
+
+            if (applicationService == null)
+            {
+                throw new ArgumentException("Service not found.");
+            }
+
+            IEnumerable<JobApplicationServiceModel> applications = await applicationService.AllApplicationsByJobIdAsync(jobId);
+
             return new JobDetailsViewModel()
             {
                 Id = job.Id,
@@ -193,7 +206,8 @@ namespace JobFinder.Core.Services
                 CompanyName = job.Company.Name,
                 Category = job.Category.Name,
                 EmploymentType = job.EmploymentType.Name,
-                EmployerId = job.Company.EmployerId
+                EmployerId = job.Company.EmployerId,
+                Applications = applications
             };
         }
 

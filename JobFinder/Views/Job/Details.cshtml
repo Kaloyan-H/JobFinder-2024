@@ -26,6 +26,24 @@
             </form>
         </div>
     </div>
+
+    <br/>
+    <h2 class="text-center text-decoration-underline">Applications</h2>
+    <br/>
+
+    @if (Model.Applications.Count() == 0)
+    {
+        <h3 class="text-center">Nobody has applied for this job yet...</h3>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var application in Model.Applications)
+            {
+                <partial name="_ApplicationPartial" model="@application" />
+            }
+        </div>
+    }
 }
 
 @if (User.IsInRole(JobSeeker.ToString()))
