@@ -8,10 +8,14 @@ namespace JobFinder.Core.Services
     public class RoleInitializer : IRoleInitializer
     {
         private readonly RoleManager<AppRole> roleManager;
+        private readonly UserManager<AppUser> userManager;
 
-        public RoleInitializer(RoleManager<AppRole> _roleManager)
+        public RoleInitializer(
+            RoleManager<AppRole> _roleManager,
+            UserManager<AppUser> _userManager)
         {
             roleManager = _roleManager;
+            userManager = _userManager;
         }
         public async Task InitializeRolesAsync()
         {
@@ -28,6 +32,18 @@ namespace JobFinder.Core.Services
                 {
                     await roleManager.CreateAsync(new AppRole(roleName));
                 }
+            }
+
+            await AddAdministratorToRoleAsync();
+        }
+
+        private async Task AddAdministratorToRoleAsync()
+        {
+            var adminUser = await userManager.FindByIdAsync("dea12856-c198-4129-b3f3-b893d8395082");
+
+            if (adminUser != null && await roleManager.RoleExistsAsync(Administrator.ToString()))
+            {
+                await userManager.AddToRoleAsync(adminUser, Administrator.ToString());
             }
         }
     }

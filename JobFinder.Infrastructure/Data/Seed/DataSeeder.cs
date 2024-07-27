@@ -1,4 +1,5 @@
 ﻿using JobFinder.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace JobFinder.Infrastructure.Data.Seed
 {
@@ -14,24 +15,75 @@ namespace JobFinder.Infrastructure.Data.Seed
 
         public DataSeeder()
         {
+            SeedUsers();
             SeedCategories();
             SeedEmploymentTypes();
         }
 
+        private void SeedUsers()
+        {
+            var hasher = new PasswordHasher<AppUser>();
+
+            var adminUser = new AppUser
+            {
+                Id = "dea12856-c198-4129-b3f3-b893d8395082",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Email = "admin@mail.com",
+                NormalizedEmail = "ADMIN@MAIL.COM",
+                FirstName = "Admin",
+                LastName = "Adminson",
+                Bio = "I'm an admin and I moderate."
+            };
+
+            var recruiterUser = new AppUser
+            {
+                Id = "206e17be-be9a-4fb6-92e7-9399f462cd94",
+                UserName = "recruiter",
+                NormalizedUserName = "RECRUITER",
+                Email = "recruiter@mail.com",
+                NormalizedEmail = "RECRUITER@MAIL.COM",
+                FirstName = "Recruiter",
+                LastName = "Recruiterson",
+                Bio = "I'm a recruiter and I recruit people."
+            };
+
+            var jobSeekerUser = new AppUser
+            {
+                Id = "a6391dd9-9706-4ebb-b00b-3efa5e49a53f",
+                UserName = "jobseeker",
+                NormalizedUserName = "JOBSEEKER",
+                Email = "jobseeker@mail.com",
+                NormalizedEmail = "JOBSEEKER@MAIL.COM",
+                FirstName = "Job",
+                LastName = "Seeker",
+                Bio = "I'm a job seeker and I'm looking for a job."
+            };
+            
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "adminPass123");
+            recruiterUser.PasswordHash = hasher.HashPassword(recruiterUser, "recruiter123");
+            jobSeekerUser.PasswordHash = hasher.HashPassword(jobSeekerUser, ",J56])gV8dp*2wq");
+
+            Users
+                .Append(adminUser)
+                .Append(recruiterUser)
+                .Append(jobSeekerUser);
+        }
+
         private void SeedCategories()
         {
-            Categories = new List<Category>()
-                .Append(new Category()
+            Categories
+                .Append(new Category
                 {
                     Id = 1,
                     Name = "IT"
                 })
-                .Append(new Category()
+                .Append(new Category
                 {
                     Id = 2,
                     Name = "Creative"
                 })
-                .Append(new Category()
+                .Append(new Category
                 {
                     Id = 3,
                     Name = "Marketing"
@@ -39,23 +91,23 @@ namespace JobFinder.Infrastructure.Data.Seed
         }
         private void SeedEmploymentTypes()
         {
-            EmploymentTypes = new List<EmploymentType>()
-                .Append(new EmploymentType()
+            EmploymentTypes
+                .Append(new EmploymentType
                 {
                     Id = 1,
                     Name = "Full-time"
                 })
-                .Append(new EmploymentType()
+                .Append(new EmploymentType
                 {
                     Id = 2,
                     Name = "Part-time"
                 })
-                .Append(new EmploymentType()
+                .Append(new EmploymentType
                 {
                     Id = 3,
                     Name = "Contract"
                 })
-                .Append(new EmploymentType()
+                .Append(new EmploymentType
                 {
                     Id = 4,
                     Name = "Internship"

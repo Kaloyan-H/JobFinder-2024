@@ -25,7 +25,7 @@ namespace JobFinder.Infrastructure.Data
             DataSeeder dataSeeder = new DataSeeder();
 
             builder.ApplyConfiguration(new JobConfiguration());
-            builder.ApplyConfiguration(new AppUserConfiguration());
+            builder.ApplyConfiguration(new AppUserConfiguration(dataSeeder.Users.ToArray()));
             builder.ApplyConfiguration(new CompanyConfiguration());
             builder.ApplyConfiguration(new MessageConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration(dataSeeder.Categories.ToArray()));
