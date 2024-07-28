@@ -64,7 +64,7 @@ namespace JobFinder.Infrastructure.Data.Seed
             recruiterUser.PasswordHash = hasher.HashPassword(recruiterUser, "recruiter123");
             jobSeekerUser.PasswordHash = hasher.HashPassword(jobSeekerUser, ",J56])gV8dp*2wq");
 
-            Users
+            Users = Users
                 .Append(adminUser)
                 .Append(recruiterUser)
                 .Append(jobSeekerUser);
@@ -72,7 +72,7 @@ namespace JobFinder.Infrastructure.Data.Seed
 
         private void SeedCategories()
         {
-            Categories
+            Categories = Categories
                 .Append(new Category
                 {
                     Id = 1,
@@ -91,7 +91,7 @@ namespace JobFinder.Infrastructure.Data.Seed
         }
         private void SeedEmploymentTypes()
         {
-            EmploymentTypes
+            EmploymentTypes = EmploymentTypes
                 .Append(new EmploymentType
                 {
                     Id = 1,
