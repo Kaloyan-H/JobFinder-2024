@@ -5,6 +5,13 @@ namespace JobFinder.Infrastructure.Data.Seed
 {
     internal class DataSeeder
     {
+        public DataSeeder()
+        {
+            SeedUsers();
+            SeedCategories();
+            SeedEmploymentTypes();
+        }
+
         public IEnumerable<Job> Jobs { get; set; } = new List<Job>();
         public IEnumerable<AppUser> Users { get; set; } = new List<AppUser>();
         public IEnumerable<Message> Messages { get; set; } = new List<Message>();
@@ -12,13 +19,6 @@ namespace JobFinder.Infrastructure.Data.Seed
         public IEnumerable<Category> Categories { get; set; } = new List<Category>();
         public IEnumerable<Application> Applications { get; set; } = new List<Application>();
         public IEnumerable<EmploymentType> EmploymentTypes { get; set; } = new List<EmploymentType>();
-
-        public DataSeeder()
-        {
-            SeedUsers();
-            SeedCategories();
-            SeedEmploymentTypes();
-        }
 
         private void SeedUsers()
         {
