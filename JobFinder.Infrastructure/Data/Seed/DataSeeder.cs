@@ -35,7 +35,7 @@ namespace JobFinder.Infrastructure.Data.Seed
                 LastName = "Adminson",
                 Bio = "I'm an admin and I moderate."
             };
-
+            
             adminUser.PasswordHash = hasher.HashPassword(adminUser, "adminPass123");
 
             Users = Users

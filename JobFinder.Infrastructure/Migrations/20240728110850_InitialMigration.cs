@@ -304,6 +304,16 @@ namespace JobFinder.Infrastructure.Migrations
                 comment: "Applications table");
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "Bio", "CompanyId", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "206e17be-be9a-4fb6-92e7-9399f462cd94", 0, "I'm a recruiter and I recruit people.", null, "5463eae1-1e62-4903-9ee8-9d03527cdf84", "recruiter@mail.com", false, "Recruiter", "Recruiterson", false, null, "RECRUITER@MAIL.COM", "RECRUITER", "AQAAAAEAACcQAAAAEH/3Rf1KRsmtdbazwHSMHQKd749fNJnFmKWggVz56ftrU2jiV8T0+pTuXD5apuwK5Q==", null, false, "5ee459ff-a739-4ad1-94c3-410e35c350ad", false, "recruiter" },
+                    { "a6391dd9-9706-4ebb-b00b-3efa5e49a53f", 0, "I'm a job seeker and I'm looking for a job.", null, "9c816fb8-ab16-415d-9340-c16f3051914f", "jobseeker@mail.com", false, "Job", "Seeker", false, null, "JOBSEEKER@MAIL.COM", "JOBSEEKER", "AQAAAAEAACcQAAAAECpaFRzXIN8+bsPGIuh/WsdbTp2voO+GntJffjB65ynICvLFmcWz/0RSJiZQBlkoWA==", null, false, "d94f95f1-5743-4cd4-ad1e-386f3adb7f2d", false, "jobseeker" },
+                    { "dea12856-c198-4129-b3f3-b893d8395082", 0, "I'm an admin and I moderate.", null, "0f730721-cce0-4c14-b7f0-dcaad3dee786", "admin@mail.com", false, "Admin", "Adminson", false, null, "ADMIN@MAIL.COM", "ADMIN", "AQAAAAEAACcQAAAAENvEsyEl3M7Er7cTwlWiD5vqo/W5kpeMzm6akCJJF/AvgwJVFXhz1wLB3GDUNIMslQ==", null, false, "bf288f60-4b0b-41df-9f62-6675226399ef", false, "admin" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Categories",
                 columns: new[] { "Id", "Name" },
                 values: new object[,]

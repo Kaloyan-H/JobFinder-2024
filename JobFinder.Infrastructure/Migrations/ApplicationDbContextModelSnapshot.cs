@@ -181,6 +181,65 @@ namespace JobFinder.Infrastructure.Migrations
                     b.ToTable("AspNetUsers", (string)null);
 
                     b.HasComment("Users table");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "dea12856-c198-4129-b3f3-b893d8395082",
+                            AccessFailedCount = 0,
+                            Bio = "I'm an admin and I moderate.",
+                            ConcurrencyStamp = "0f730721-cce0-4c14-b7f0-dcaad3dee786",
+                            Email = "admin@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Admin",
+                            LastName = "Adminson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@MAIL.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAEAACcQAAAAENvEsyEl3M7Er7cTwlWiD5vqo/W5kpeMzm6akCJJF/AvgwJVFXhz1wLB3GDUNIMslQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "bf288f60-4b0b-41df-9f62-6675226399ef",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        },
+                        new
+                        {
+                            Id = "206e17be-be9a-4fb6-92e7-9399f462cd94",
+                            AccessFailedCount = 0,
+                            Bio = "I'm a recruiter and I recruit people.",
+                            ConcurrencyStamp = "5463eae1-1e62-4903-9ee8-9d03527cdf84",
+                            Email = "recruiter@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Recruiter",
+                            LastName = "Recruiterson",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "RECRUITER@MAIL.COM",
+                            NormalizedUserName = "RECRUITER",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH/3Rf1KRsmtdbazwHSMHQKd749fNJnFmKWggVz56ftrU2jiV8T0+pTuXD5apuwK5Q==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "5ee459ff-a739-4ad1-94c3-410e35c350ad",
+                            TwoFactorEnabled = false,
+                            UserName = "recruiter"
+                        },
+                        new
+                        {
+                            Id = "a6391dd9-9706-4ebb-b00b-3efa5e49a53f",
+                            AccessFailedCount = 0,
+                            Bio = "I'm a job seeker and I'm looking for a job.",
+                            ConcurrencyStamp = "9c816fb8-ab16-415d-9340-c16f3051914f",
+                            Email = "jobseeker@mail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Job",
+                            LastName = "Seeker",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JOBSEEKER@MAIL.COM",
+                            NormalizedUserName = "JOBSEEKER",
+                            PasswordHash = "AQAAAAEAACcQAAAAECpaFRzXIN8+bsPGIuh/WsdbTp2voO+GntJffjB65ynICvLFmcWz/0RSJiZQBlkoWA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "d94f95f1-5743-4cd4-ad1e-386f3adb7f2d",
+                            TwoFactorEnabled = false,
+                            UserName = "jobseeker"
+                        });
                 });
 
             modelBuilder.Entity("JobFinder.Infrastructure.Data.Models.Category", b =>
