@@ -36,38 +36,10 @@ namespace JobFinder.Infrastructure.Data.Seed
                 Bio = "I'm an admin and I moderate."
             };
 
-            var recruiterUser = new AppUser
-            {
-                Id = "206e17be-be9a-4fb6-92e7-9399f462cd94",
-                UserName = "recruiter",
-                NormalizedUserName = "RECRUITER",
-                Email = "recruiter@mail.com",
-                NormalizedEmail = "RECRUITER@MAIL.COM",
-                FirstName = "Recruiter",
-                LastName = "Recruiterson",
-                Bio = "I'm a recruiter and I recruit people."
-            };
-
-            var jobSeekerUser = new AppUser
-            {
-                Id = "a6391dd9-9706-4ebb-b00b-3efa5e49a53f",
-                UserName = "jobseeker",
-                NormalizedUserName = "JOBSEEKER",
-                Email = "jobseeker@mail.com",
-                NormalizedEmail = "JOBSEEKER@MAIL.COM",
-                FirstName = "Job",
-                LastName = "Seeker",
-                Bio = "I'm a job seeker and I'm looking for a job."
-            };
-            
             adminUser.PasswordHash = hasher.HashPassword(adminUser, "adminPass123");
-            recruiterUser.PasswordHash = hasher.HashPassword(recruiterUser, "recruiter123");
-            jobSeekerUser.PasswordHash = hasher.HashPassword(jobSeekerUser, ",J56])gV8dp*2wq");
 
             Users = Users
-                .Append(adminUser)
-                .Append(recruiterUser)
-                .Append(jobSeekerUser);
+                .Append(adminUser);
         }
 
         private void SeedCategories()
