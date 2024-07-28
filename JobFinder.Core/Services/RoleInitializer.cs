@@ -41,9 +41,13 @@ namespace JobFinder.Core.Services
         {
             var adminUser = await userManager.FindByIdAsync("dea12856-c198-4129-b3f3-b893d8395082");
 
-            if (adminUser != null && await roleManager.RoleExistsAsync(Administrator.ToString()))
+            string adminRoleString = Administrator.ToString();
+
+            if (adminUser != null
+                && await roleManager.RoleExistsAsync(adminRoleString)
+                && !await userManager.IsInRoleAsync(adminUser, adminRoleString))
             {
-                await userManager.AddToRoleAsync(adminUser, Administrator.ToString());
+                await userManager.AddToRoleAsync(adminUser, adminRoleString);
             }
         }
     }
