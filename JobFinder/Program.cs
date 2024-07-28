@@ -1,4 +1,3 @@
-using JobFinder.Core.Contracts;
 using JobFinder.ModelBinders;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,11 +17,7 @@ builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var roleInitializer = scope.ServiceProvider.GetRequiredService<IRoleInitializer>();
-    await roleInitializer.InitializeRolesAsync();
-}
+await app.SeedRolesAsync();
 
 if (app.Environment.IsDevelopment())
 {
