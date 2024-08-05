@@ -46,8 +46,8 @@ namespace JobFinder.Controllers
 
             query.TotalJobsCount = model.TotalJobsCount;
             query.Jobs = model.Jobs;
-            query.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
-            query.Categories = await categoryService.AllCategoriesAsync();
+            query.EmploymentTypes = await employmentTypeService.AllAsync();
+            query.Categories = await categoryService.AllAsync();
 
             return View(query);
         }
@@ -95,8 +95,8 @@ namespace JobFinder.Controllers
         {
             var model = new JobCreateFormModel();
 
-            model.Categories = await categoryService.AllCategoriesAsync();
-            model.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
+            model.Categories = await categoryService.AllAsync();
+            model.EmploymentTypes = await employmentTypeService.AllAsync();
 
             return View(model);
         }
@@ -122,8 +122,8 @@ namespace JobFinder.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Categories = await categoryService.AllCategoriesAsync();
-                model.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
+                model.Categories = await categoryService.AllAsync();
+                model.EmploymentTypes = await employmentTypeService.AllAsync();
 
                 return View(model);
             }
@@ -162,8 +162,8 @@ namespace JobFinder.Controllers
                 return Forbid();
             }
 
-            model.Categories = await categoryService.AllCategoriesAsync();
-            model.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
+            model.Categories = await categoryService.AllAsync();
+            model.EmploymentTypes = await employmentTypeService.AllAsync();
 
             return View(model);
         }
@@ -200,13 +200,13 @@ namespace JobFinder.Controllers
 
             if (!ModelState.IsValid)
             {
-                model.Categories = await categoryService.AllCategoriesAsync();
-                model.EmploymentTypes = await employmentTypeService.AllEmploymentTypesAsync();
+                model.Categories = await categoryService.AllAsync();
+                model.EmploymentTypes = await employmentTypeService.AllAsync();
 
                 return View(model);
             }
 
-            int jobId = await jobService.EditJobAsync(model);
+            int jobId = await jobService.EditAsync(model);
 
             return RedirectToAction(nameof(Details), new { id = jobId, information = model.GetInformation() });
         }
@@ -248,7 +248,7 @@ namespace JobFinder.Controllers
                 return Forbid();
             }
 
-            var success = await jobService.DeleteJobAsync(model.Id);
+            var success = await jobService.DeleteAsync(model.Id);
 
             if (!success)
             {

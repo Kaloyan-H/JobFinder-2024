@@ -61,7 +61,7 @@ namespace JobFinder.Core.Services
             return job.Id;
         }
 
-        public async Task<int> EditJobAsync(JobEditFormModel model)
+        public async Task<int> EditAsync(JobEditFormModel model)
         {
             var job = await repository.GetByIdAsync<Job>(model.Id);
 
@@ -85,7 +85,7 @@ namespace JobFinder.Core.Services
             return 0;
         }
 
-        public async Task<bool> DeleteJobAsync(int jobId)
+        public async Task<bool> DeleteAsync(int jobId)
         {
             var job = await repository.GetByIdAsync<Job>(jobId);
 

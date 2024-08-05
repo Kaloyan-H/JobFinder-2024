@@ -16,9 +16,9 @@ namespace JobFinder.Core.Contracts
         /// <returns>The Job entity Id</returns>
         public Task<int> CreateAsync(JobCreateFormModel model);
 
-        public Task<int> EditJobAsync(JobEditFormModel model);
+        public Task<int> EditAsync(JobEditFormModel model);
 
-        public Task<bool> DeleteJobAsync(int jobId);
+        public Task<bool> DeleteAsync(int jobId);
 
         public Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel);
 

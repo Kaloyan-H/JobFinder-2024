@@ -20,7 +20,7 @@ namespace JobFinder.Core.Services
                 .AllReadOnly<Category>()
                 .AnyAsync(c => c.Id == categoryId);
 
-        public async Task<IEnumerable<JobCategoryServiceModel>> AllCategoriesAsync()
+        public async Task<IEnumerable<JobCategoryServiceModel>> AllAsync()
         {
             return await repository
                 .All<Category>()

@@ -20,7 +20,7 @@ namespace JobFinder.Core.Services
                 .AllReadOnly<EmploymentType>()
                 .AnyAsync(et => et.Id == employmentTypeId);
 
-        public async Task<IEnumerable<JobEmploymentTypeServiceModel>> AllEmploymentTypesAsync()
+        public async Task<IEnumerable<JobEmploymentTypeServiceModel>> AllAsync()
         {
             return await repository
                 .All<EmploymentType>()
