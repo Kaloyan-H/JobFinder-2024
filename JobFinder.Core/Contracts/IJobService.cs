@@ -22,8 +22,6 @@ namespace JobFinder.Core.Contracts
 
         public Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel);
 
-        public Task<IEnumerable<JobServiceModel>> AllByEmployerIdAsync(string employerId);
-
         public Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId);
 
         public Task<JobEditFormModel> GetJobEditModelAsync(int jobId);

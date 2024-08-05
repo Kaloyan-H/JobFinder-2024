@@ -108,7 +108,12 @@ namespace JobFinder.Core.Services
 
         public async Task<JobQueryServiceModel> AllAsync(AllJobsQueryModel queryModel)
         {
-            var jobs = repository.All<Job>();
+            var jobs = repository.AllReadOnly<Job>();
+
+            if (queryModel.EmployerId != null)
+            {
+                jobs = jobs.Where(j => j.Company.EmployerId == queryModel.EmployerId);
+            }
 
             if (queryModel.CategoryId != null)
             {
@@ -170,13 +175,6 @@ namespace JobFinder.Core.Services
                 TotalJobsCount = totalJobs,
             };
         }
-
-        public async Task<IEnumerable<JobServiceModel>> AllByEmployerIdAsync(string employerId)
-            => await repository
-                .AllReadOnly<Job>()
-                .Where(j => j.Company.EmployerId == employerId)
-                .ProjectToJobServiceModel()
-                .ToListAsync();
 
         public async Task<JobDetailsViewModel> GetJobDetailsModelAsync(int jobId)
         {

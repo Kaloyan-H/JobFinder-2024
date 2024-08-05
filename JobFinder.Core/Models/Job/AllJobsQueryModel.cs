@@ -18,6 +18,8 @@ namespace JobFinder.Core.Models.Job
 
         public JobSortingEnum Sorting { get; set; } = JobSortingEnum.NewestFirst;
 
+        public string? EmployerId { get; set; } = null;
+
         public int CurrentPage { get; set; } = 1;
 
         public int TotalJobsCount { get; set; }

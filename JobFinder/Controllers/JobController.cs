@@ -80,12 +80,19 @@ namespace JobFinder.Controllers
         [HttpGet]
         [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
-        public async Task<IActionResult> Mine()
+        public async Task<IActionResult> Mine([FromQuery] AllJobsQueryModel query)
         {
             string userId = User.Id();
-            IEnumerable<JobServiceModel> model = await jobService.AllByEmployerIdAsync(userId);
 
-            return View(model);
+            var model = await jobService.AllAsync(query);
+
+            query.TotalJobsCount = model.TotalJobsCount;
+            query.Jobs = model.Jobs;
+            query.EmploymentTypes = await employmentTypeService.AllAsync();
+            query.Categories = await categoryService.AllAsync();
+            query.EmployerId = userId;
+
+            return View(query);
         }
 
         [HttpGet]
