@@ -1,9 +1,14 @@
 ﻿@inject SignInManager<AppUser> SignInManager
-@inject UserManager<AppUser> UserManager
 
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        @if (User.IsAdmin())
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark btn btn-info" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Interface</a>
+            </li>
+        }
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
         </li>

@@ -156,7 +156,8 @@ namespace JobFinder.Controllers
 
             var model = await jobService.GetJobEditModelAsync(id);
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id())
+                && !User.IsAdmin())
             {
                 return Forbid();
             }
@@ -177,7 +178,8 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id())
+                && !User.IsAdmin())
             {
                 return Forbid();
             }
@@ -221,7 +223,8 @@ namespace JobFinder.Controllers
 
             var model = await jobService.GetJobDeleteModelAsync(id);
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(id, User.Id()))
+            if (!await jobService.JobIsOwnedByEmployerAsync(id, User.Id())
+                && !User.IsAdmin())
             {
                 return Forbid();
             }
@@ -239,7 +242,8 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id())
+                && !User.IsAdmin())
             {
                 return Forbid();
             }
