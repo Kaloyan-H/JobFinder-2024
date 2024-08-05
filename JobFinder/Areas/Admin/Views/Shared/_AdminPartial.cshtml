@@ -1,0 +1,22 @@
+﻿@inject SignInManager<AppUser> SignInManager
+
+<ul class="navbar-nav"> 
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello, @User.Identity?.Name!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark btn btn-danger" asp-area="" asp-controller="Home" asp-action="Index" title="Back">Return to Public Interface</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="User" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="User" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>

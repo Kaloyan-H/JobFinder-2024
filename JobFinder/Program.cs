@@ -45,9 +45,15 @@ app.UseEndpoints(endpoints =>
         name: "Job Details",
         pattern: "Job/Details/{id}/{information}",
         defaults: new { Controller = "Job", Action = "Details" });
+
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+
     endpoints.MapRazorPages();
 });
 
