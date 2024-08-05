@@ -5,7 +5,7 @@ using JobFinder.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using static JobFinder.Infrastructure.Constants.RolesEnum;
+using static JobFinder.Infrastructure.Constants.RoleConstants;
 
 namespace JobFinder.Controllers
 {
@@ -72,9 +72,8 @@ namespace JobFinder.Controllers
                 FirstName = model.FirstName,
             };
 
-
-            if (await roleManager.RoleExistsAsync(model.Role) &&
-                (model.Role == Recruiter.ToString() || model.Role == JobSeeker.ToString()))
+            if (await roleManager.RoleExistsAsync(model.Role)
+                && (model.Role == RECRUITER_ROLE || model.Role == JOBSEEKER_ROLE))
             {
                 var result = await userManager.CreateAsync(user, model.Password);
 

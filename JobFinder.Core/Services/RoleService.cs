@@ -3,7 +3,7 @@ using JobFinder.Core.Models.User;
 using JobFinder.Infrastructure.Common;
 using JobFinder.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using static JobFinder.Infrastructure.Constants.RolesEnum;
+using static JobFinder.Infrastructure.Constants.RoleConstants;
 
 namespace JobFinder.Core.Services
 {
@@ -20,7 +20,7 @@ namespace JobFinder.Core.Services
         {
             return await repository
                 .All<AppRole>()
-                .Where(ar => ar.Name == Recruiter.ToString() || ar.Name == JobSeeker.ToString())
+                .Where(ar => ar.Name == RECRUITER_ROLE || ar.Name == JOBSEEKER_ROLE)
                 .Select(ar => new UserRoleServiceModel
                 {
                     Name = ar.Name,

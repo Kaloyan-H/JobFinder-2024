@@ -7,7 +7,7 @@
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Index">All Job Offers</a>
         </li>
-        @if (User.IsInRole(Recruiter.ToString()))
+        @if (User.IsInRole(RECRUITER_ROLE))
         {
             <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-controller="Job" asp-action="Mine">My Job Offers</a>

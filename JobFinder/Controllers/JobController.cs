@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using JobFinder.Core.Extensions;
+using static JobFinder.Infrastructure.Constants.RoleConstants;
 
 namespace JobFinder.Controllers
 {
@@ -77,7 +78,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Mine()
         {
@@ -88,7 +89,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
         [HasCompany]
         public async Task<IActionResult> Create()
         {
@@ -101,7 +102,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Create(JobCreateFormModel model)
         {
@@ -144,7 +145,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
         [HasCompany]
         public async Task<IActionResult> Edit(int id)
         {
@@ -167,7 +168,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
         [HasCompany]
         public async Task<IActionResult> Edit(JobEditFormModel model)
         {
@@ -209,7 +210,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
         [HasCompany]
         public async Task<IActionResult> Delete(int id)
         {
@@ -229,7 +230,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
         [HasCompany]
         public async Task<IActionResult> Delete(JobDeleteViewModel model)
         {

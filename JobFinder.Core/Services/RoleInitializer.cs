@@ -1,7 +1,7 @@
 ﻿using JobFinder.Core.Contracts;
 using JobFinder.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity;
-using static JobFinder.Infrastructure.Constants.RolesEnum;
+using static JobFinder.Infrastructure.Constants.RoleConstants;
 
 namespace JobFinder.Core.Services
 {
@@ -21,9 +21,9 @@ namespace JobFinder.Core.Services
         {
             string[] roleNames =
             {
-                Administrator.ToString(),
-                Recruiter.ToString(),
-                JobSeeker.ToString(),
+                ADMINISTRATOR_ROLE,
+                RECRUITER_ROLE,
+                JOBSEEKER_ROLE,
             };
 
             foreach (var roleName in roleNames)
@@ -41,13 +41,11 @@ namespace JobFinder.Core.Services
         {
             var adminUser = await userManager.FindByIdAsync("dea12856-c198-4129-b3f3-b893d8395082");
 
-            string adminRoleString = Administrator.ToString();
-
             if (adminUser != null
-                && await roleManager.RoleExistsAsync(adminRoleString)
-                && !await userManager.IsInRoleAsync(adminUser, adminRoleString))
+                && await roleManager.RoleExistsAsync(ADMINISTRATOR_ROLE)
+                && !await userManager.IsInRoleAsync(adminUser, ADMINISTRATOR_ROLE))
             {
-                await userManager.AddToRoleAsync(adminUser, adminRoleString);
+                await userManager.AddToRoleAsync(adminUser, ADMINISTRATOR_ROLE);
             }
         }
     }

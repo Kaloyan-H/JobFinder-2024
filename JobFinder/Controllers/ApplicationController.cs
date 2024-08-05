@@ -3,6 +3,7 @@ using JobFinder.Core.Models.Application;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static JobFinder.Infrastructure.Constants.RoleConstants;
 
 namespace JobFinder.Controllers
 {
@@ -38,7 +39,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "JobSeeker")]
+        [Authorize(Roles = JOBSEEKER_ROLE)]
         public async Task<IActionResult> Create(int jobId)
         {
             if (await applicationService.AppliedAlreadyAsync(User.Id(), jobId))
@@ -54,7 +55,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "JobSeeker")]
+        [Authorize(Roles = JOBSEEKER_ROLE)]
         public async Task<IActionResult> Create(ApplicationCreateFormModel model)
         {
             if (!ModelState.IsValid)

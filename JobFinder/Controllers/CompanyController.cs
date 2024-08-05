@@ -4,6 +4,7 @@ using JobFinder.Core.Models.Company;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static JobFinder.Infrastructure.Constants.RoleConstants;
 
 namespace JobFinder.Controllers
 {
@@ -21,7 +22,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Index()
         {
@@ -40,7 +41,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasNoCompany]
         public IActionResult Create()
         {
@@ -50,7 +51,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Recruiter")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasNoCompany]
         public async Task<IActionResult> Create(CompanyCreateFormModel model)
         {

@@ -46,7 +46,7 @@
     }
 }
 
-@if (User.IsInRole(JobSeeker.ToString()))
+@if (User.IsInRole(JOBSEEKER_ROLE))
 {
     if (!(await applicationService.AppliedAlreadyAsync(User.Id(), Model.Id)))
     {
