@@ -34,6 +34,7 @@ namespace JobFinder.Controllers
             logger = _logger;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return RedirectToAction(nameof(All));

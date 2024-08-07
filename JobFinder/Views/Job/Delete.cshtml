@@ -8,10 +8,7 @@
 
 <div class="row justify-content-md-center">
     <div class="col-md-1">
-        <form class="text-center" asp-controller="Job" asp-action="Details" method="get">
-            <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
-            <button class="btn btn-success" type="submit" role="button">No</button>
-        </form>
+        <a class="btn btn-success" asp-controller="Job" asp-action="Details" asp-route-id="@Model.Id" asp-route-information="@Model.GetInformation()">No</a>
     </div>
     <div class="col-md-1">
         <form class="text-center" method="post">
