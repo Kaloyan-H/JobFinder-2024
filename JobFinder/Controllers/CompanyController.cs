@@ -1,5 +1,6 @@
 ﻿using JobFinder.Attributes;
 using JobFinder.Core.Contracts;
+using JobFinder.Core.Extensions;
 using JobFinder.Core.Models.Company;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -66,7 +67,7 @@ namespace JobFinder.Controllers
             if (!await companyService.ExistsAsync(id))
             {
                 return NotFound();
-        }
+            }
 
             try
             {
@@ -77,8 +78,8 @@ namespace JobFinder.Controllers
                     return BadRequest();
                 }
 
-            return View(model);
-        }
+                return View(model);
+            }
             catch (ArgumentException)
             {
                 return StatusCode(500);
@@ -126,5 +127,53 @@ namespace JobFinder.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [HasCompany]
+        public async Task<IActionResult> Edit(int id)
+        {
+            if (!await companyService.ExistsAsync(id))
+            {
+                return NotFound();
+            }
+
+            var model = await companyService.GetCompanyEditModelAsync(id);
+
+            if (!await companyService.CompanyIsOwnedByEmployerAsync(id, User.Id())
+                && !User.IsAdmin())
+            {
+                return Forbid();
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [HasCompany]
+        public async Task<IActionResult> Edit(CompanyEditFormModel model)
+        {
+            if (!await companyService.ExistsAsync(model.Id))
+            {
+                return NotFound();
+            }
+
+            if (!await companyService.CompanyIsOwnedByEmployerAsync(model.Id, User.Id())
+                && !User.IsAdmin())
+            {
+                return Forbid();
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            int companyId = await companyService.EditAsync(model);
+
+            return RedirectToAction(nameof(Details), new { id = companyId, information = model.GetInformation() });
+        }
+
     }
 }
