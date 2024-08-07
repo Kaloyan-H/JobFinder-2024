@@ -9,6 +9,7 @@
         public const string EmploymentTypeDoesNotExistErrorMessage = "Employment type does not exist.";
         public const string UserDoesNotExistErrorMessage = "User does not exist.";
         public const string JobDoesNotExistErrorMessage = "Job does not exist.";
+        public const string CompanyDoesNotExistErrorMessage = "Company does not exist.";
         public const string ApplicationDoesNotExistErrorMessage = "Application does not exist.";
     }
 }

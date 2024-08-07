@@ -22,22 +22,67 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {JOBSEEKER_ROLE}")]
+        public IActionResult Index()
+        {
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {JOBSEEKER_ROLE}")]
+        public async Task<IActionResult> All([FromQuery] AllCompaniesQueryModel query)
+        {
+            var model = await companyService.AllAsync(query);
+
+            query.TotalCompaniesCount = model.TotalCompaniesCount;
+            query.Companies = model.Companies;
+
+            return View(query);
+        }
+
+        [HttpGet]
         [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Mine()
         {
             var user = await userService.GetUserAsync(User.Id());
 
             int companyId = user!.CompanyId ?? 0;
 
-            var model = await companyService.GetCompanyAsync(companyId);
+            var model = await companyService.GetCompanyDetailsModelAsync(companyId);
 
             if (model == null)
             {
                 return RedirectToAction(nameof(Create));
             }
 
+            return RedirectToAction(nameof(Details), new { id = companyId, information = model.GetInformation() });
+        }
+
+        [HttpGet]
+        [Authorize(Roles = $"{RECRUITER_ROLE}, {JOBSEEKER_ROLE}")]
+        public async Task<IActionResult> Details(int id, string information)
+        {
+            if (!await companyService.ExistsAsync(id))
+            {
+                return NotFound();
+        }
+
+            try
+            {
+                CompanyDetailsViewModel model = await companyService.GetCompanyDetailsModelAsync(id);
+
+                if (model.GetInformation() != information)
+                {
+                    return BadRequest();
+                }
+
             return View(model);
+        }
+            catch (ArgumentException)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpGet]

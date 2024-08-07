@@ -1,4 +1,5 @@
 ﻿using JobFinder.Core.Contracts;
+using JobFinder.Core.Models.Company;
 using System.Text.RegularExpressions;
 
 namespace JobFinder.Core.Extensions
@@ -6,8 +7,14 @@ namespace JobFinder.Core.Extensions
     public static class ModelExtensions
     {
         public static string GetInformation(this IJobModel jobModel)
+            => TurnToValidUrlString(jobModel.Title);
+
+        public static string GetInformation(this ICompanyModel companyModel)
+            => TurnToValidUrlString($"{companyModel.Name} {companyModel.Industry}");
+
+        private static string TurnToValidUrlString(string input)
         {
-            string result = jobModel.Title;
+            string result = input;
 
             result = Regex.Replace(result, @"[^a-zA-Z\-\s]", string.Empty);
             result = Regex.Replace(result, @"\s+", " ").Trim();

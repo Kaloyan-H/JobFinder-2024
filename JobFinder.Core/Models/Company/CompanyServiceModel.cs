@@ -1,7 +1,11 @@
-﻿namespace JobFinder.Core.Models.Company
+﻿using JobFinder.Core.Contracts;
+
+namespace JobFinder.Core.Models.Company
 {
-    public class CompanyViewModel
+    public class CompanyServiceModel : ICompanyModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; } = null!;
 
         public string Description { get; set; } = null!;

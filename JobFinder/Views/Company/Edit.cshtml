@@ -1,7 +1,7 @@
-﻿@model CompanyCreateFormModel
+﻿@model CompanyEditFormModel
 
 @{
-    ViewBag.Title = "Create Company";
+    ViewBag.Title = "Edit Company";
 }
 
 <h1 class="text-center">@ViewBag.Title</h1>
@@ -26,8 +26,10 @@
                 <input class="form-control " autocomplete="off aria-required="true" asp-for="@Model.Industry" />
                 <span asp-validation-for="@Model.Industry" class="text-danger"></span>
             </div>
+            <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+            <input type="hidden" name="@nameof(Model.EmployerId)" value=@Model.EmployerId />
             <div class="text-center">
-                <button id="registerSubmit" type="submit" class="btn btn-primary">Create</button>
+                <button id="registerSubmit" type="submit" class="btn btn-primary">Edit</button>
             </div>
         </form>
     </div>

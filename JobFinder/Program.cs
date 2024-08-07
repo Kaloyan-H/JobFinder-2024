@@ -47,6 +47,11 @@ app.UseEndpoints(endpoints =>
         defaults: new { Controller = "Job", Action = "Details" });
 
     endpoints.MapControllerRoute(
+        name: "Company Details",
+        pattern: "Company/Details/{id}/{information}",
+        defaults: new { Controller = "Company", Action = "Details" });
+
+    endpoints.MapControllerRoute(
         name: "areas",
         pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
