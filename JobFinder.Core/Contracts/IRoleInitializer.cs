@@ -2,6 +2,9 @@
 {
     public interface IRoleInitializer
     {
+        /// <summary>
+        /// Initializes all roles.
+        /// </summary>
         public Task InitializeRolesAsync();
     }
 }
