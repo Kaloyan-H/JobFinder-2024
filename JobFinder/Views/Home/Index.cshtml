@@ -1,9 +1,69 @@
 ﻿@model HomeIndexViewModel
+@inject IUserService userService
 
 @{
     ViewBag.Title = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome!</h1>
+<div class="container">
+    @if (User?.Identity?.IsAuthenticated ?? false)
+    {
+        @if (User.IsInRole(RECRUITER_ROLE))
+        {
+            <div class="row text-center mb-3">
+                <h1>Start recruiting now!</h1>
+            </div>
+
+            @if (!await userService.HasCompanyAsync(User.Id()))
+            {
+                <div class="row">
+                    <div class="col-md-4 offset-md-4 text-center">
+                        <a class="btn btn-success" asp-controller="Company" asp-action="Create">Create Company</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-4 offset-md-4 text-center">
+                        <a class="btn btn-success" asp-controller="Job" asp-action="Create">Create Job Offer</a>
+                    </div>
+                </div>
+            }
+        }
+        else if (User.IsInRole(JOBSEEKER_ROLE))
+        {
+            <div class="row text-center mb-3">
+                <h1>Start applying now!</h1>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4 offset-md-4 text-center">
+                    <a class="btn btn-success" asp-controller="Job" asp-action="All">Browse Job Offers</a>
+                </div>
+            </div>
+        }
+        else if (User.IsInRole(ADMINISTRATOR_ROLE))
+        {
+            <div class="row text-center mb-3">
+                <h1>Go to the admin interface!</h1>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4 offset-md-4 text-center">
+                    <a class="btn btn-success" asp-area="Admin" asp-controller="Home" asp-action="Index">Admin Interface</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row text-center mb-3">
+            <h1 class="display-4">Welcome!</h1>
+        </div>
+        <div class="row text-center">
+            <div class="col-md-4 offset-md-4 text-center">
+                <a class="btn btn-success" asp-controller="User" asp-action="Login">Login</a>
+            </div>
+        </div>
+    }
 </div>
+

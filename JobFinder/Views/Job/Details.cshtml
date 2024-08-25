@@ -19,6 +19,22 @@
             <br />
             @Model.Requirements
         </p>
+        @if (Model.Responsibilities != null)
+        {
+            <p class="text-wrap">
+                <b>Responsibilities</b>
+                <br />
+                @Model.Responsibilities
+            </p>
+        }
+        @if (Model.Benefits != null)
+        {
+            <p class="text-wrap">
+                <b>Benefits</b>
+                <br />
+                @Model.Benefits
+            </p>
+        }
     </div>
 </div>
 
