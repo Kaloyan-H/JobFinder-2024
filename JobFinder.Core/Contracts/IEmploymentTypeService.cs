@@ -1,4 +1,4 @@
-﻿using JobFinder.Core.Models.Job;
+﻿using JobFinder.Core.Models.EmploymentType;
 
 namespace JobFinder.Core.Contracts
 {
@@ -15,6 +15,6 @@ namespace JobFinder.Core.Contracts
         /// Asynchronously finds all employment types.
         /// </summary>
         /// <returns>A collection of employment type DTOs.</returns>
-        public Task<IEnumerable<JobEmploymentTypeServiceModel>> AllAsync();
+        public Task<IEnumerable<EmploymentTypeServiceModel>> AllAsync();
     }
 }

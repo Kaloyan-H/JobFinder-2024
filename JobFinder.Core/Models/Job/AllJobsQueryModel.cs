@@ -1,5 +1,5 @@
 ﻿using JobFinder.Core.Models.Category;
-﻿using JobFinder.Infrastructure.Constants;
+using JobFinder.Core.Models.EmploymentType;
 using System.ComponentModel.DataAnnotations;
 
 namespace JobFinder.Core.Models.Job
@@ -31,7 +31,7 @@ namespace JobFinder.Core.Models.Job
         public IEnumerable<CategoryServiceModel> Categories { get; set; }
             = new List<CategoryServiceModel>();
 
-        public IEnumerable<JobEmploymentTypeServiceModel> EmploymentTypes { get; set; }
-            = new List<JobEmploymentTypeServiceModel>();
+        public IEnumerable<EmploymentTypeServiceModel> EmploymentTypes { get; set; }
+            = new List<EmploymentTypeServiceModel>();
     }
 }

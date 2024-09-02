@@ -1,5 +1,6 @@
 ﻿using JobFinder.Core.Contracts;
 using JobFinder.Core.Models.Category;
+using JobFinder.Core.Models.EmploymentType;
 using JobFinder.Infrastructure.Constants;
 using System.ComponentModel.DataAnnotations;
 using static JobFinder.Infrastructure.Constants.ValidationConstants;
@@ -61,8 +62,8 @@ namespace JobFinder.Core.Models.Job
         public IEnumerable<CategoryServiceModel> Categories { get; set; }
             = new List<CategoryServiceModel>();
 
-        public IEnumerable<JobEmploymentTypeServiceModel> EmploymentTypes { get; set; }
-            = new List<JobEmploymentTypeServiceModel>();
+        public IEnumerable<EmploymentTypeServiceModel> EmploymentTypes { get; set; }
+            = new List<EmploymentTypeServiceModel>();
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
