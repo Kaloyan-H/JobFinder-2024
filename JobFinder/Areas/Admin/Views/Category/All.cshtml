@@ -1,0 +1,49 @@
+﻿@model IEnumerable<CategoryServiceModel>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in Model)
+                    {
+                        <tr>
+                            <th scope="col">@category.Id</th>
+                            <td>@category.Name</td>
+                            <td>
+                                <form class="text-center" asp-area="Admin" asp-controller="Category" asp-action="Edit" method="get">
+                                    <input type="hidden" name="@nameof(category.Id)" value=@category.Id />
+                                    <button class="btn btn-warning" type="submit" role="button">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form class="text-center" asp-area="Admin" asp-controller="Category" asp-action="Delete" method="get">
+                                    <input type="hidden" name="@nameof(category.Id)" value=@category.Id />
+                                    <button class="btn btn-danger" type="submit" role="button">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <form class="text-center" asp-area="Admin" asp-controller="Category" asp-action="Create" method="get">
+                <button class="btn btn-success" type="submit" role="button">Create New Category</button>
+            </form>
+        </div>
+    </div>
+</div>
