@@ -1,0 +1,34 @@
+﻿@model EmploymentTypeDeleteViewModel
+
+@{
+    ViewBag.Title = $"Are you sure you want to delete \"{Model.Name}\"?";
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form class="text-center" method="post">
+            <div class="text-center mb-3">
+                <label asp-for="@Model.NewEmploymentTypeId">Choose an employment type to replace @Model.Name</label>
+                <select asp-for="@Model.NewEmploymentTypeId" class="form-control">
+                    @foreach (var employmentType in Model.EmploymentTypes)
+                    {
+                        <option value="@employmentType.Id">@employmentType.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.NewEmploymentTypeId" class="text-danger"></span>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-md-1">
+                    <a class="btn btn-success" asp-area="Admin" asp-controller="EmploymentType" asp-action="All">Cancel</a>
+                </div>
+                <div class="col-md-1">
+                    <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+                    <input type="hidden" name="@nameof(Model.Name)" value="@Model.Name" />
+                    <button class="btn btn-danger" type="submit" role="button">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
