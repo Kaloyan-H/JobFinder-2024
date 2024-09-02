@@ -60,6 +60,7 @@ namespace JobFinder.Controllers
 
             if (!ModelState.IsValid)
             {
+                model.Roles = await roleService.AllNormalRolesAsync();
                 return View(model);
             }
 
