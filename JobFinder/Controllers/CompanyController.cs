@@ -23,7 +23,6 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {JOBSEEKER_ROLE}")]
         public IActionResult Index()
         {
             return RedirectToAction(nameof(All));
@@ -61,7 +60,6 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {JOBSEEKER_ROLE}")]
         public async Task<IActionResult> Details(int id, string information)
         {
             if (!await companyService.ExistsAsync(id))
@@ -129,7 +127,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Edit(int id)
         {
@@ -140,8 +138,7 @@ namespace JobFinder.Controllers
 
             var model = await companyService.GetCompanyEditModelAsync(id);
 
-            if (!await companyService.CompanyIsOwnedByEmployerAsync(id, User.Id())
-                && !User.IsAdmin())
+            if (!await companyService.CompanyIsOwnedByEmployerAsync(id, User.Id()))
             {
                 return Forbid();
             }
@@ -150,7 +147,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Edit(CompanyEditFormModel model)
         {
@@ -159,8 +156,7 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            if (!await companyService.CompanyIsOwnedByEmployerAsync(model.Id, User.Id())
-                && !User.IsAdmin())
+            if (!await companyService.CompanyIsOwnedByEmployerAsync(model.Id, User.Id()))
             {
                 return Forbid();
             }

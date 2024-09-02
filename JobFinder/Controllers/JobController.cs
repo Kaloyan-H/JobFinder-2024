@@ -97,7 +97,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Create()
         {
@@ -153,7 +153,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Edit(int id)
         {
@@ -164,8 +164,7 @@ namespace JobFinder.Controllers
 
             var model = await jobService.GetJobEditModelAsync(id);
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id())
-                && !User.IsAdmin())
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
             {
                 return Forbid();
             }
@@ -177,7 +176,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Edit(JobEditFormModel model)
         {
@@ -186,8 +185,7 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id())
-                && !User.IsAdmin())
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
             {
                 return Forbid();
             }
@@ -220,7 +218,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Delete(int id)
         {
@@ -231,8 +229,7 @@ namespace JobFinder.Controllers
 
             var model = await jobService.GetJobDeleteModelAsync(id);
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(id, User.Id())
-                && !User.IsAdmin())
+            if (!await jobService.JobIsOwnedByEmployerAsync(id, User.Id()))
             {
                 return Forbid();
             }
@@ -241,7 +238,7 @@ namespace JobFinder.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {ADMINISTRATOR_ROLE}")]
+        [Authorize(Roles = RECRUITER_ROLE)]
         [HasCompany]
         public async Task<IActionResult> Delete(JobDeleteViewModel model)
         {
@@ -250,8 +247,7 @@ namespace JobFinder.Controllers
                 return NotFound();
             }
 
-            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id())
-                && !User.IsAdmin())
+            if (!await jobService.JobIsOwnedByEmployerAsync(model.Id, User.Id()))
             {
                 return Forbid();
             }
