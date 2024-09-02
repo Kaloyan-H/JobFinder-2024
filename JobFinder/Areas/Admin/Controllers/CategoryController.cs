@@ -92,6 +92,8 @@ namespace JobFinder.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                model.Categories = await categoryService.AllExceptAsync(model.Id);
+
                 return View(model);
             }
 
