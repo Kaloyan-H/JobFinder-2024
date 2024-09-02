@@ -1,5 +1,6 @@
 ﻿using JobFinder.Core.Models.Category;
 using JobFinder.Core.Models.EmploymentType;
+using JobFinder.Infrastructure.Constants;
 using System.ComponentModel.DataAnnotations;
 
 namespace JobFinder.Core.Models.Job

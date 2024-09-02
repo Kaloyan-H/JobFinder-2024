@@ -1,5 +1,4 @@
 ﻿using JobFinder.Core.Contracts;
-using JobFinder.Core.Models.Company;
 using System.Text.RegularExpressions;
 
 namespace JobFinder.Core.Extensions

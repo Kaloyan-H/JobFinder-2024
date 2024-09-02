@@ -31,7 +31,7 @@ namespace JobFinder.Core.Contracts
         /// Asynchronously edits the given job and saves the changes in the database.
         /// </summary>
         /// <param name="model">The job DTO.</param>
-        /// <returns>The job id.</returns>
+        /// <returns>The job id or 0 if the entity isn't found.</returns>
         public Task<int> EditAsync(JobEditFormModel model);
 
         /// <summary>
