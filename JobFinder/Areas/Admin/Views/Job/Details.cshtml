@@ -1,0 +1,72 @@
+﻿@model JobDetailsViewModel
+
+@{
+    ViewBag.Title = Model.Title;
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <p class="text-wrap">
+            <b>Description</b>
+            <br />
+            @Model.Description
+        </p>
+        <p class="text-wrap">
+            <b>Requirements</b>
+            <br />
+            @Model.Requirements
+        </p>
+        @if (Model.Responsibilities != null)
+        {
+            <p class="text-wrap">
+                <b>Responsibilities</b>
+                <br />
+                @Model.Responsibilities
+            </p>
+        }
+        @if (Model.Benefits != null)
+        {
+            <p class="text-wrap">
+                <b>Benefits</b>
+                <br />
+                @Model.Benefits
+            </p>
+        }
+    </div>
+</div>
+
+
+<div class="row justify-content-md-center">
+    <div class="col-md-1">
+        <form class="text-center" asp-area="Admin" asp-controller="Job" asp-action="Edit" method="get">
+            <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+            <button class="btn btn-warning" type="submit" role="button">Edit</button>
+        </form>
+    </div>
+    <div class="col-md-1">
+        <form class="text-center" asp-area="Admin" asp-controller="Job" asp-action="Delete" method="get">
+            <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+            <button class="btn btn-danger" type="submit" role="button">Delete</button>
+        </form>
+    </div>
+</div>
+
+<br />
+<h2 class="text-center text-decoration-underline">Applications</h2>
+<br />
+
+@if (Model.Applications.Count() == 0)
+{
+    <h3 class="text-center">Nobody has applied for this job yet...</h3>
+}
+else
+{
+    <div class="row">
+        @foreach (var application in Model.Applications)
+        {
+            <partial name="_ApplicationPartial" model="@application" />
+        }
+    </div>
+}

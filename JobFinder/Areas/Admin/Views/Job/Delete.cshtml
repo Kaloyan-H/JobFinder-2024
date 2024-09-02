@@ -1,0 +1,21 @@
+﻿@model JobDeleteViewModel
+
+@{
+    ViewBag.Title = $"Are you sure you want to delete \"{Model.Title}\"?";
+}
+
+<h1 class="text-center">@ViewBag.Title</h1>
+
+<div class="row justify-content-md-center">
+    <div class="col-md-1">
+        <a class="btn btn-success" asp-controller="Job" asp-action="Details" asp-route-id="@Model.Id" asp-route-information="@Model.GetInformation()">No</a>
+    </div>
+    <div class="col-md-1">
+        <form class="text-center" method="post">
+            <input type="hidden" name="@nameof(Model.Id)" value=@Model.Id />
+            <input type="hidden" name="@nameof(Model.Title)" value=@Model.Title />
+            <input type="hidden" name="@nameof(Model.EmployerId)" value=@Model.EmployerId />
+            <button class="btn btn-danger" type="submit" role="button">Yes</button>
+        </form>
+    </div>
+</div>

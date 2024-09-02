@@ -42,6 +42,11 @@ app.UseAuthorization();
 app.UseEndpoints(endpoints =>
 { 
     endpoints.MapControllerRoute(
+        name: "Admin Job Details",
+        pattern: "Admin/Job/Details/{id}/{information}",
+        defaults: new { Area = "Admin", Controller = "Job", Action = "Details" });
+
+    endpoints.MapControllerRoute(
         name: "Job Details",
         pattern: "Job/Details/{id}/{information}",
         defaults: new { Controller = "Job", Action = "Details" });
