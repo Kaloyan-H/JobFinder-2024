@@ -1,5 +1,5 @@
 ﻿using JobFinder.Core.Contracts;
-using JobFinder.Core.Models.Job;
+using JobFinder.Core.Models.Category;
 using JobFinder.Infrastructure.Common;
 using JobFinder.Infrastructure.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -20,11 +20,11 @@ namespace JobFinder.Core.Services
                 .AllReadOnly<Category>()
                 .AnyAsync(c => c.Id == categoryId);
 
-        public async Task<IEnumerable<JobCategoryServiceModel>> AllAsync()
+        public async Task<IEnumerable<CategoryServiceModel>> AllAsync()
         {
             return await repository
                 .All<Category>()
-                .Select(c => new JobCategoryServiceModel
+                .Select(c => new CategoryServiceModel
                 {
                     Id = c.Id,
                     Name = c.Name,

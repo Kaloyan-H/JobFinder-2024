@@ -1,4 +1,4 @@
-﻿using JobFinder.Core.Models.Job;
+﻿using JobFinder.Core.Models.Category;
 
 namespace JobFinder.Core.Contracts
 {
@@ -15,6 +15,6 @@ namespace JobFinder.Core.Contracts
         /// Asynchronously finds all categories.
         /// </summary>
         /// <returns>A collection of category DTOs.</returns>
-        public Task<IEnumerable<JobCategoryServiceModel>> AllAsync();
+        public Task<IEnumerable<CategoryServiceModel>> AllAsync();
     }
 }
