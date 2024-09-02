@@ -130,7 +130,7 @@ namespace JobFinder.Core.Services
             return category;
         }
 
-        internal async Task ReplaceCategoriesAsync(int oldCategoryId, int newCategoryId)
+        private async Task ReplaceCategoriesAsync(int oldCategoryId, int newCategoryId)
         {
             if (!await ExistsAsync(oldCategoryId) || !await ExistsAsync(newCategoryId))
             {
