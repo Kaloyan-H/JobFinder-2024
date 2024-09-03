@@ -20,11 +20,6 @@ namespace JobFinder.Controllers
             userService = _userService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {

@@ -1,0 +1,28 @@
+﻿@model ApplicationDetailsViewModel
+
+<h1 class="text-center">@Model.JobTitle at @Model.CompanyName</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <p class="text-wrap">
+            <b>Name</b>
+            <br />
+            @Model.ApplicantFirstName @Model.ApplicantLastName
+        </p>
+        <p class="text-wrap">
+            <b>Email</b>
+            <br />
+            @Model.ApplicantEmail
+        </p>
+        <p class="text-wrap">
+            <b>Cover Letter</b>
+            <br />
+            @Model.CoverLetter
+        </p>
+        <p class="text-wrap">
+            <b>Resume URL</b>
+            <br />
+            <a href="@Model.ResumeURL">@Model.ResumeURL</a>
+        </p>
+    </div>
+</div>

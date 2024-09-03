@@ -1,0 +1,12 @@
+﻿@model JobApplicationServiceModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <div class="card-body text-center">
+            <h4>@Model.ApplicantFirstName @Model.ApplicantLastName</h4>
+            <h6>@Model.ApplicantEmail</h6>
+            <br />
+            <a asp-area="Admin" asp-controller="Application" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-success">Details</a>
+        </div>
+    </div>
+</div>
