@@ -29,7 +29,6 @@ namespace JobFinder.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = $"{RECRUITER_ROLE}, {JOBSEEKER_ROLE}")]
         public async Task<IActionResult> All([FromQuery] AllCompaniesQueryModel query)
         {
             var model = await companyService.AllAsync(query);
